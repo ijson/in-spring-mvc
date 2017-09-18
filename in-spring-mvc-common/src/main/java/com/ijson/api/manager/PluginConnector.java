@@ -15,14 +15,14 @@ public interface PluginConnector {
      * <string>首先,我们需要在appliactionContext-{projectName}.xml中定义相关插件,代码如下</string>
      * <blockquote>
      * <pre>
-     *  &lt;bean id="dictCateManager" class="cn.datamining.dict.manager.impl.DictCateManagerImpl"&gt;
+     *  &lt;bean id="dictCateManager" class="com.ijson.dict.manager.impl.DictCateManagerImpl"&gt;
      * 	&lt;property name="plugins"&gt;
      * 		&lt;map&gt;
      * 			&lt;entry key="cateEname" value-ref="cateEnamePlugin"&gt;&lt;/entry&gt;
      * 		&lt;/map&gt;
      * 	&lt;/property>
      * &lt;/bean>
-     * &lt;bean id="cateEnamePlugin" class="cn.datamining.dict.manager.plugins.CateEnamePlugin"&gt;&lt;/bean&gt;
+     * &lt;bean id="cateEnamePlugin" class="com.ijson.dict.manager.plugins.CateEnamePlugin"&gt;&lt;/bean&gt;
      * </pre>
      * 并且在实现类中添加以下代码:</br>
      * protected Map<String, PluginConnector> plugins;</br>

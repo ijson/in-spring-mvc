@@ -66,7 +66,7 @@ public class MethodParam {
      * @param key        属性字段
      * @param cacheId    缓存Id
      * @param sqlStr     sql
-     * @param spanceName 实体名  package+class,例如:cn.datamining.entity.User
+     * @param spanceName 实体名  package+class,例如:com.ijson.entity.User
      */
     public MethodParam(String key, String cacheId, String sqlStr, String spanceName) {
         this.cacheId = cacheId;
