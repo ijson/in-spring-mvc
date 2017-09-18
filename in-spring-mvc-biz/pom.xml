@@ -12,7 +12,11 @@
     <url>http://maven.apache.org</url>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.ijson</groupId>
+            <artifactId>in-spring-mvc-common</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

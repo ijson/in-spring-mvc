@@ -8,9 +8,9 @@ import com.ijson.common.util.Validator;
 import com.ijson.database.db.BaseDao;
 import com.ijson.database.model.MethodParam;
 import com.ijson.database.model.Page;
+import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
-import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -78,7 +78,7 @@ public class DaoHibernateImpl extends HibernateDaoSupport implements BaseDao {
     public boolean insertBath(MethodParam param) {
         List list = (List) param.getVaule();
         try {
-            this.getHibernateTemplate().saveOrUpdate(list);
+            this.getHibernateTemplate().save(list);
         } catch (Exception e) {
             throw new DBServiceException("执行insertBath方法出错");
         }
