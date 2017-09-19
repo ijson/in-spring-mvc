@@ -1,9 +1,13 @@
 package com.ijson.platform.generator.template;
 
+import com.ijson.platform.common.util.SystemUtil;
 import com.ijson.platform.generator.model.ColumnEntity;
 import com.ijson.platform.generator.model.ParamsVo;
 import com.ijson.platform.generator.model.TableEntity;
-import com.ijson.platform.generator.util.*;
+import com.ijson.platform.generator.util.DataType;
+import com.ijson.platform.generator.util.FileOperate;
+import com.ijson.platform.generator.util.ToolsUtil;
+import com.ijson.platform.common.util.Validator;
 
 import java.util.List;
 

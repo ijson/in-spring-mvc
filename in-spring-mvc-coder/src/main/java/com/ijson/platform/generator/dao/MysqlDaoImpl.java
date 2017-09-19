@@ -1,11 +1,11 @@
 package com.ijson.platform.generator.dao;
 
+import com.ijson.platform.common.util.SystemUtil;
+import com.ijson.platform.common.util.Validator;
 import com.ijson.platform.generator.model.ColumnEntity;
 import com.ijson.platform.generator.model.TableEntity;
 import com.ijson.platform.generator.util.ConnctionData;
-import com.ijson.platform.generator.util.SystemUtil;
 import com.ijson.platform.generator.util.ToolsUtil;
-import com.ijson.platform.generator.util.Validator;
 
 import java.sql.*;
 import java.util.ArrayList;

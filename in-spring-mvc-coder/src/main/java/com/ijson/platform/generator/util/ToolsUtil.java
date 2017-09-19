@@ -1,5 +1,7 @@
 package com.ijson.platform.generator.util;
 
+import com.ijson.platform.common.util.Validator;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
