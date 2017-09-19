@@ -76,8 +76,15 @@
         </tx:attributes>
     </tx:advice>
 
-    <import resource="classpath*:spring/hibernate-database.xml"/>
+    <!-- myibatis config -->
+    <import resource="classpath*:spring/myibatis-database.xml"/>
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
+
+    <!--
+    <import resource="classpath*:spring/hibernate-database.xml"/>
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>-->
 </beans>

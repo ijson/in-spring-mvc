@@ -12,8 +12,8 @@
    </settings> 
 	<plugins>
 		<!-- 指定数据库分页方言Dialect, 其它方言:OracleDialect,SQLServerDialect,SybaseDialect,DB2Dialect,MySQLDialect-->
-		<plugin interceptor="com.zbx.database.db.ibatis.DiclectStatementHandlerInterceptor">
-			<property name="dialect" value="com.zbx.database.db.ibatis.dialect.OracleDialect"/>
+		<plugin interceptor="com.ijson.platform.database.db.mybatis.DiclectStatementHandlerInterceptor">
+			<property name="dialect" value="com.ijson.platform.database.db.mybatis.dialect.OracleDialect"/>
 		</plugin>
 	</plugins>
 

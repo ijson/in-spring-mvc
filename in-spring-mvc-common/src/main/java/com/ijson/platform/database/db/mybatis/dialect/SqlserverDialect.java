@@ -1,21 +1,14 @@
-/**
-  * <br>JAVACC DEMO 1.0<br>
-  * @copy right zbx company All rights reserved.<br>
-  * <br>
-  * @Package com.zbx.database.db.ibatis.dialect
-*/
 package com.ijson.platform.database.db.mybatis.dialect;
 
-import com.zbx.database.constant.Validator;
+
+import com.ijson.platform.common.util.Validator;
 
 /**
   * description: 
-  * @author Hou DaYu 创建时间：上午11:34:48
   */
 public class SqlserverDialect implements Dialect {
 
 	/* (non-Javadoc)
-	 * @see com.zbx.database.db.ibatis.dialect.Dialect#supportsLimit()
 	 */
 	@Override
 	public boolean supportsLimit() {
@@ -24,7 +17,6 @@ public class SqlserverDialect implements Dialect {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.zbx.database.db.ibatis.dialect.Dialect#supportsLimitOffset()
 	 */
 	@Override
 	public boolean supportsLimitOffset() {
@@ -33,7 +25,6 @@ public class SqlserverDialect implements Dialect {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.zbx.database.db.ibatis.dialect.Dialect#getLimitString(java.lang.String, int, int, java.lang.String)
 	 */
 	@Override
 	public String getLimitString(String sql, int offset, int limit, String orderby) {
