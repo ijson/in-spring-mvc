@@ -47,5 +47,12 @@ public class ParamsVo<E> extends BaseEntity {
      */
     private String userEname;
 
+    public Object getParams(String key) {
+        return params.get(key);
+    }
+
+    public void setParams(String key, Object value) {
+        params.put(key, value);
+    }
 
 }
