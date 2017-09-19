@@ -99,7 +99,7 @@ public class MysqlDaoImpl implements IDao {
                 }
                 //}
                 if (Validator.isNotNull(pkColumn)) {
-                    table.setpKColumn(ToolsUtil.toCamelNamed(pkColumn));
+                    table.setPKColumn(ToolsUtil.toCamelNamed(pkColumn));
                 }
                 table.setTableAttName(ToolsUtil.toUpperFirst(tableName.substring(tabPrefix.length())));
                 table.setTableName(tableName);

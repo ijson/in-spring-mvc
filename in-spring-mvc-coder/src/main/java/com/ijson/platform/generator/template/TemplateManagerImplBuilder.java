@@ -101,7 +101,7 @@ public class TemplateManagerImplBuilder implements TemplateHanlder {
                 String beanIdName = ToolsUtil.toCamelNamed(table.getTableName().replaceAll(tabPrefix, ""));
                 result.append(getManagerImplImports(tableName));
                 result.append("public class " + tableName + "ManagerImpl implements " + tableName + "Manager { \n\n");
-                result.append(getManagerImplClassMethods(tableName, beanIdName, table.getpKColumn(), table));
+                result.append(getManagerImplClassMethods(tableName, beanIdName, table.getPKColumn(), table));
                 result.append("} \n");
                 FileOperate.getInstance()
                         .newCreateFile(managerPath + tableName + "ManagerImpl.java", result.toString());

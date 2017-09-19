@@ -53,7 +53,7 @@ public class HibernateXmlBuilder implements TemplateHanlder {
                 ColumnEntity col = table.getColumns().get(i);
                 String colType = DataType.getDataType(col.getColumnTypeName(), true, col.getPrecision());
 
-                if (col.getAttrName().equalsIgnoreCase(table.getpKColumn())) {
+                if (col.getAttrName().equalsIgnoreCase(table.getPKColumn())) {
                     result.append("    <id name=\"" + col.getAttrName() + "\" type=\"" + colType + "\">\n");
                     result.append("        <column name=\"" + col.getColumnName() + "\" length=\"" + col.getPrecision()
                             + "\" />\n");

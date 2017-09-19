@@ -1,5 +1,10 @@
 package com.ijson.platform.generator.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class ColumnEntity {
 
 	private String columnName;//列名
@@ -14,61 +19,5 @@ public class ColumnEntity {
 
 	private String attrName;//属性名
 	private String jdbcType;//数据类型
-
-	public String getColumnName() {
-		return columnName;
-	}
-
-	public void setColumnName(String columnName) {
-		this.columnName = columnName;
-	}
-
-	public String getColumnTypeName() {
-		return columnTypeName;
-	}
-
-	public void setColumnTypeName(String columnTypeName) {
-		this.columnTypeName = columnTypeName;
-	}
-
-	public String getColumnClassName() {
-		return columnClassName;
-	}
-
-	public void setColumnClassName(String columnClassName) {
-		this.columnClassName = columnClassName;
-	}
-
-	public int getPrecision() {
-		return precision;
-	}
-
-	public void setPrecision(int precision) {
-		this.precision = precision;
-	}
-
-	public int getIsNullable() {
-		return isNullable;
-	}
-
-	public void setIsNullable(int isNullable) {
-		this.isNullable = isNullable;
-	}
-
-	public String getAttrName() {
-		return attrName;
-	}
-
-	public void setAttrName(String attrName) {
-		this.attrName = attrName;
-	}
-
-	public String getJdbcType() {
-		return jdbcType;
-	}
-
-	public void setJdbcType(String jdbcType) {
-		this.jdbcType = jdbcType;
-	}
 
 }
