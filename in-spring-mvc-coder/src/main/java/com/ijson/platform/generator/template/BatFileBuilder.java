@@ -67,10 +67,10 @@ public class BatFileBuilder implements TemplateHanlder {
      * @update Nov 13, 2015
      */
     private String getMvnContent(String jarPath) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append("");
         sb.append("@echo off\r\n");
-        sb.append("title " + jarPath.substring(jarPath.lastIndexOf(".") + 1) + " generation\r\n");
+        sb.append("title ").append(jarPath.substring(jarPath.lastIndexOf(".") + 1)).append(" generation\r\n");
         sb.append("echo [INFO] 正在生成maven项目\r\n");
         sb.append("call mvn eclipse:clean eclipse:eclipse\r\n");
         sb.append("pause\r\n");
@@ -86,10 +86,10 @@ public class BatFileBuilder implements TemplateHanlder {
      * @update Nov 13, 2015
      */
     private String getNoMvn(String jarPath) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append("");
         sb.append("@echo off\r\n");
-        sb.append("title " + jarPath.substring(jarPath.lastIndexOf(".") + 1) + " generation\r\n");
+        sb.append("title ").append(jarPath.substring(jarPath.lastIndexOf(".") + 1)).append(" generation\r\n");
         sb.append("echo [INFO] 确保系统中已经安装配置好Maven.并已配置环境变量\r\n");
         sb.append("echo [INFO] 环境变量中添加:M2_HOME=/home/maven-3.0.4\r\n");
         sb.append("PAUSE\r\n");

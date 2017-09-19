@@ -84,4 +84,18 @@ public class ConnctionData {
     }
 
 
+    public void close(Connection con, PreparedStatement stmt, ResultSet rs) {
+        try {
+            if (null != rs) {
+                rs.close();
+            }
+            if (null != stmt) {
+                stmt.close();
+                con.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

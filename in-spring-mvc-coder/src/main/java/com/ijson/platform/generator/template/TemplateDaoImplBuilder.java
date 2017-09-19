@@ -26,14 +26,12 @@ public class TemplateDaoImplBuilder implements TemplateHanlder {
 
     public void getTemplateStr(List<TableEntity> tables, String daoPath,Map<String, String> config) {
         if (!Validator.isEmpty(tables)) {
-            int count = tables.size();
-            for (int i = 0; i < count; i++) {
-                StringBuffer result = new StringBuffer("");
-                TableEntity table = tables.get(i);
-                String tableName = table.getTableAttName();
+            for (TableEntity table1 : tables) {
+                StringBuilder result = new StringBuilder("");
+                String tableName = table1.getTableAttName();
                 result.append(getImports(config));
-                result.append("public class " + tableName + "DaoImpl extends DaoImpl { \n\n");
-                result.append(getClassMethods(table));
+                result.append("public class ").append(tableName).append("DaoImpl extends DaoImpl { \n\n");
+                result.append(getClassMethods(table1));
                 result.append("} \n");
                 FileOperate.getInstance().newCreateFile(daoPath + tableName + "DaoImpl.java", result.toString());
             }
@@ -46,11 +44,9 @@ public class TemplateDaoImplBuilder implements TemplateHanlder {
      * @return
      */
     private String getImports(Map<String, String> config) {
-        StringBuffer result = new StringBuffer("package " + config.get("package_name")
-                + ".dao;\n\n");
-        result.append("import com.ijson.platform.database.db.DaoImpl;\n");
-        result.append("\n \n");
-        return result.toString();
+        return "package " + config.get("package_name")
+                + ".dao;\n\n" + "import com.ijson.platform.database.db.DaoImpl;\n" +
+                "\n \n";
     }
 
     /**
@@ -59,16 +55,16 @@ public class TemplateDaoImplBuilder implements TemplateHanlder {
      * @return
      */
     private String getClassMethods(TableEntity table) {
-        StringBuffer result = new StringBuffer("   public String getSql(int type) { \n");
+        StringBuilder result = new StringBuilder("   public String getSql(int type) { \n");
         String sql = "from " + table.getTableAttName() + " where 1=1";
         result.append("      String sql = \"\";\n");
         result.append("      switch (type) {\n");
         result.append("      case 1:\n");
-        result.append("           sql=\"select count(*) " + sql + " \";\n           break;\n");
+        result.append("           sql=\"select count(*) ").append(sql).append(" \";\n           break;\n");
         result.append("      case 2:\n");
-        result.append("           sql=\" " + sql + " \";\n           break;\n");
+        result.append("           sql=\" ").append(sql).append(" \";\n           break;\n");
         result.append("      default:\n");
-        result.append("          sql=\"select count(*) " + sql + " \";\n    }\n");
+        result.append("          sql=\"select count(*) ").append(sql).append(" \";\n    }\n");
         result.append("    return sql;\n }\n");
         result.append("\n \n");
         result.append("   public void initSystemCache() { \n");

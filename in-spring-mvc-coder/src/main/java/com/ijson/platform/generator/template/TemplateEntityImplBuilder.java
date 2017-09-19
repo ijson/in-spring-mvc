@@ -25,15 +25,13 @@ public class TemplateEntityImplBuilder implements TemplateHanlder {
                 + config.get("package_name").replace(".", "/") + "/entity/";
         FileOperate.getInstance().newCreateFolder(classPath);
         if (!Validator.isEmpty(tables)) {
-            int count = tables.size();
-            for (int i = 0; i < count; i++) {
-                StringBuffer result = new StringBuffer("");
-                TableEntity table = tables.get(i);
-                String tableName = table.getTableAttName();
+            for (TableEntity table1 : tables) {
+                StringBuilder result = new StringBuilder("");
+                String tableName = table1.getTableAttName();
                 result.append(getImports(config));
                 result.append("@SuppressWarnings(\"serial\")\n");
-                result.append("public class " + tableName + " extends BaseEntity { \n\n");
-                result.append(getClassMethods(table.getColumns()));
+                result.append("public class ").append(tableName).append(" extends BaseEntity { \n\n");
+                result.append(getClassMethods(table1.getColumns()));
                 result.append("} \n");
                 FileOperate.getInstance().newCreateFile(classPath + tableName + ".java", result.toString());
             }
@@ -46,11 +44,9 @@ public class TemplateEntityImplBuilder implements TemplateHanlder {
      * @return
      */
     private String getImports(Map<String, String> config) {
-        StringBuffer result = new StringBuffer("package " + config.get("package_name")
-                + ".entity;\n\n");
-        result.append("import com.ijson.platform.api.model.BaseEntity;\n");
-        result.append("\n \n");
-        return result.toString();
+        return "package " + config.get("package_name")
+                + ".entity;\n\n" + "import com.ijson.platform.api.model.BaseEntity;\n" +
+                "\n \n";
     }
 
     /**
@@ -60,26 +56,26 @@ public class TemplateEntityImplBuilder implements TemplateHanlder {
      */
     private String getClassMethods(List<ColumnEntity> columns) {
         int count = columns.size();
-        StringBuffer result = new StringBuffer("");
+        StringBuilder result = new StringBuilder("");
         String cols[] = new String[count];
-        StringBuffer sb = new StringBuffer("      StringBuffer sb = new StringBuffer();\n");
+        StringBuilder sb = new StringBuilder("      StringBuffer sb = new StringBuffer();\n");
         for (int i = 0; i < count; i++) {
             ColumnEntity column = columns.get(i);
             String colType = DataType.getDataType(column.getColumnTypeName(), false, column.getPrecision());
             String str = colType + " " + column.getAttrName();
             cols[i] = str;
-            sb.append("      sb.append(\"" + column.getAttrName() + "=\"+this." + column.getAttrName() + "+\";\");\n");
-            result.append("   public " + colType + " get" + ToolsUtil.toUpperFirst(column.getAttrName()) + "() {\n");
-            result.append("      return this. " + column.getAttrName() + ";\n   } \n");
-            result.append("   public void set" + ToolsUtil.toUpperFirst(column.getAttrName()) + "(" + str + " ) {\n");
-            result.append("      this. " + column.getAttrName() + "=" + column.getAttrName() + ";\n   } \n");
+            sb.append("      sb.append(\"").append(column.getAttrName()).append("=\"+this.").append(column.getAttrName()).append("+\";\");\n");
+            result.append("   public ").append(colType).append(" get").append(ToolsUtil.toUpperFirst(column.getAttrName())).append("() {\n");
+            result.append("      return this. ").append(column.getAttrName()).append(";\n   } \n");
+            result.append("   public void set").append(ToolsUtil.toUpperFirst(column.getAttrName())).append("(").append(str).append(" ) {\n");
+            result.append("      this. ").append(column.getAttrName()).append("=").append(column.getAttrName()).append(";\n   } \n");
         }
         result.append("\n   ");
         for (int i = 0; i < count; i++) {
-            result.append("private " + cols[i] + ";\n   ");
+            result.append("private ").append(cols[i]).append(";\n   ");
         }
         result.append("public String toString(){\n");
-        result.append(sb.toString() + "\n");
+        result.append(sb.toString()).append("\n");
         result.append("      return sb.toString();\n");
         result.append("   } \n");
         result.append("\n");

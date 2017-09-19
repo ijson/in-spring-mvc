@@ -13,5 +13,5 @@ public interface TemplateHanlder {
      *
      * @param vo 方法参数
      */
-    public void execute(ParamsVo<TableEntity> vo,Map<String,String> config);
+     void execute(ParamsVo<TableEntity> vo,Map<String,String> config);
 }

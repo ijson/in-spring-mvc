@@ -19,21 +19,18 @@ public class HibernateXmlBuilder implements TemplateHanlder {
         createdHibernateXml(prefix, tables,config);
     }
 
-    public void createdHibernateXml(String prefix, List<TableEntity> tables, Map<String, String> config) {
+    private void createdHibernateXml(String prefix, List<TableEntity> tables, Map<String, String> config) {
         String jarPath = config.get("package_name");
         String xmlPath = config.get("fs_path") + "/" + prefix + "resources/hibernate/";
         FileOperate.getInstance().newCreateFolder(xmlPath);
         if (!Validator.isEmpty(tables)) {
-            int count = tables.size();
-            for (int i = 0; i < count; i++) {
-                TableEntity table = tables.get(i);
-                StringBuffer result = new StringBuffer("");
+            for (TableEntity table : tables) {
+                StringBuilder result = new StringBuilder("");
                 result.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
                 result.append("<!DOCTYPE hibernate-mapping PUBLIC \"-//Hibernate/Hibernate Mapping DTD 3.0//EN\" \n");
                 result.append("\"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd\">\n\n");
                 result.append("<hibernate-mapping>\n");
-                result.append("    <class name=\"" + jarPath + ".entity." + table.getTableAttName() + "\" table=\""
-                        + table.getTableName() + "\" >\n");
+                result.append("    <class name=\"").append(jarPath).append(".entity.").append(table.getTableAttName()).append("\" table=\"").append(table.getTableName()).append("\" >\n");
 
                 result.append(getResultMap(table));
 
@@ -45,8 +42,8 @@ public class HibernateXmlBuilder implements TemplateHanlder {
         }
     }
 
-    public String getResultMap(TableEntity table) {
-        StringBuffer result = new StringBuffer("");
+    private String getResultMap(TableEntity table) {
+        StringBuilder result = new StringBuilder("");
         int count = table.getColumns().size();
         if (count > 0) {
             for (int i = 0; i < count; i++) {
@@ -54,15 +51,13 @@ public class HibernateXmlBuilder implements TemplateHanlder {
                 String colType = DataType.getDataType(col.getColumnTypeName(), true, col.getPrecision());
 
                 if (col.getAttrName().equalsIgnoreCase(table.getPKColumn())) {
-                    result.append("    <id name=\"" + col.getAttrName() + "\" type=\"" + colType + "\">\n");
-                    result.append("        <column name=\"" + col.getColumnName() + "\" length=\"" + col.getPrecision()
-                            + "\" />\n");
+                    result.append("    <id name=\"").append(col.getAttrName()).append("\" type=\"").append(colType).append("\">\n");
+                    result.append("        <column name=\"").append(col.getColumnName()).append("\" length=\"").append(col.getPrecision()).append("\" />\n");
                     result.append("        <generator class=\"assigned\" />\n");
                     result.append("    </id>\n");
                 } else {
-                    result.append("    <property name=\"" + col.getAttrName() + "\" type=\"" + colType + "\">\n");
-                    result.append("        <column name=\"" + col.getColumnName() + "\" length=\"" + col.getPrecision()
-                            + "\" />\n");
+                    result.append("    <property name=\"").append(col.getAttrName()).append("\" type=\"").append(colType).append("\">\n");
+                    result.append("        <column name=\"").append(col.getColumnName()).append("\" length=\"").append(col.getPrecision()).append("\" />\n");
                     result.append("    </property>\n");
                 }
             }
