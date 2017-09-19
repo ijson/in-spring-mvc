@@ -39,6 +39,7 @@ public class LoadManagerFactory {
             hanlders.add(new TemplateDaoImplBuilder());//生成dao
             hanlders.add(new TemplateEntityImplBuilder());//生成entity
             hanlders.add(new TemplateManagerImplBuilder());//生成manager
+            hanlders.add(new SqlmapsXmlBuilder());//ibatis
             hanlders.add(new HibernateXmlBuilder());//生成.hbm.xml
             hanlders.add(new BatFileBuilder());//生成bat文件
             codegener.setHanlders(hanlders);
