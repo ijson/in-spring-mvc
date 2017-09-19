@@ -1,12 +1,14 @@
 package com.ijson.platform.generator.util;
 
 import com.ijson.platform.common.util.Validator;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
+@Slf4j
 public class FileOperate {
 
     private static FileOperate instance = null;
@@ -51,8 +53,7 @@ public class FileOperate {
                 }
             }
         } catch (Exception e) {
-            //log.error("新建目录操作出错ERROR KEY:" + e.getMessage());
-            e.printStackTrace();
+           log.error("新建目录操作出错ERROR KEY:" , e.getMessage());
         }
         return result;
     }
@@ -81,8 +82,7 @@ public class FileOperate {
                 result = true;
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            //log.error("新建文件操作出错ERROR KEY:" + e.getMessage());
+            log.error("新建文件操作出错ERROR KEY:" , e.getMessage());
         }
         return result;
     }
@@ -111,8 +111,7 @@ public class FileOperate {
                 result = true;
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            //log.error("新建文件操作出错ERROR KEY:" + e.getMessage());
+            log.error("新建文件操作出错ERROR KEY:" , e.getMessage());
         }
         return result;
     }
@@ -125,8 +124,7 @@ public class FileOperate {
      */
     public File[] getFileList(String filePath) {
         File file = new File(filePath);
-        File flist[] = file.listFiles();
-        return flist;
+        return file.listFiles();
     }
 
     /**
@@ -154,8 +152,4 @@ public class FileOperate {
         return path.replace("//", "/");
     }
 
-    public static void main(String[] args) {
-        String abc = "E:\\ide\\apache-tomcat-6.0.20\\webapps\\";
-        abc.replaceAll("\\\\", "/");
-    }
 }

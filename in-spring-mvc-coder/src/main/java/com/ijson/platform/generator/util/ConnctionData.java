@@ -71,6 +71,8 @@ public class ConnctionData {
         } finally {
             if (null != stmt) {
                 stmt.close();
+            }
+            if (null != conn) {
                 conn.close();
             }
         }
@@ -81,31 +83,5 @@ public class ConnctionData {
         return ds.getConnection();
     }
 
-    public void close(Connection con, Statement stmt, ResultSet rs) {
-        try {
-            if (null != rs) {
-                rs.close();
-            }
-            if (null != stmt) {
-                stmt.close();
-                con.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
-    public void close(Connection con, PreparedStatement stmt, ResultSet rs) {
-        try {
-            if (null != rs) {
-                rs.close();
-            }
-            if (null != stmt) {
-                stmt.close();
-                con.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }

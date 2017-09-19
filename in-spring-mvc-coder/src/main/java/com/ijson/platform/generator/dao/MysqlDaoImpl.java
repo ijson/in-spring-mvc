@@ -1,45 +1,43 @@
 package com.ijson.platform.generator.dao;
 
+import com.google.common.collect.Lists;
 import com.ijson.platform.common.util.Validator;
 import com.ijson.platform.generator.model.ColumnEntity;
 import com.ijson.platform.generator.model.TableEntity;
 import com.ijson.platform.generator.util.ConnctionData;
 import com.ijson.platform.generator.util.ToolsUtil;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 
+@Slf4j
 public class MysqlDaoImpl implements IDao {
 
-    private ConnctionData conn;
-
     public List<TableEntity> getTables(String[] tableNames, Map<String, String> config) {
-        conn = ConnctionData.getInstance(config.get("jdbc.url"), config.get("jdbc.driver"), config.get("jdbc.user"), config.get("jdbc.password"));
+        ConnctionData conn = ConnctionData.getInstance(config.get("jdbc.url"), config.get("jdbc.driver"), config.get("jdbc.user"), config.get("jdbc.password"));
 
-
-        List<TableEntity> result = new ArrayList<TableEntity>();
+        List<TableEntity> result = Lists.newArrayList();
         Connection connection = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
             connection = conn.getConnection();
-            if (Validator.isEmpty(connection)) {
-                System.out.println("连接数据库成功...");
+            if (!Validator.isEmpty(connection)) {
+                log.info("连接数据库成功...");
             }
-            int count = tableNames.length;
             String tabPrefix = config.get("table_prefix").toLowerCase();
-            for (int q = 0; q < count; q++) {
-                String sql = "select * from " + tableNames[q].toLowerCase();
+            for (String tableName1 : tableNames) {
+                String sql = "select * from " + tableName1.toLowerCase();
                 stmt = connection.prepareStatement(sql);
                 rs = stmt.executeQuery(sql);
                 ResultSetMetaData data = rs.getMetaData();
-                String pkColumn = getPKColumn(tableNames[q], connection);
+                String pkColumn = getPKColumn(tableName1, connection);
                 TableEntity table = new TableEntity();
-                String tableName = tableNames[q].toLowerCase();
-                System.out.println("当前表名:" + tableName);
+                String tableName = tableName1.toLowerCase();
+                log.info("当前表名:{}", tableName);
                 //if (rs.next()) {
                 int ccnum = data.getColumnCount();
                 for (int i = 1; i <= ccnum; i++) {
@@ -87,7 +85,7 @@ public class MysqlDaoImpl implements IDao {
                     //能否出现在where中
                     //boolean isSearchable = data.isSearchable(i);
                     //System.out.println(columnCount);
-                    System.out.println("----->获得列" + i + "的字段名称:" + columnName);
+                    //System.out.println("----->获得列" + i + "的字段名称:" + columnName);
                     //System.out.println("获得列" + i + "的数据类型名:" + columnTypeName);
                     //System.out.println("获得列" + i + "在数据库中类型的最大字符个数:" + columnDisplaySize);
                     //System.out.println("获得列" + i + "对应的表名:" + tableName);
@@ -103,8 +101,7 @@ public class MysqlDaoImpl implements IDao {
                 result.add(table);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("数据库连接失败");
+            log.error("数据库链接失败:", e);
         } finally {
             conn.close(connection, stmt, rs);
         }

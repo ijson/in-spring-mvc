@@ -21,7 +21,6 @@ public class LoadDaoFactory {
      * description:  暂时默认使用mysql
      *
      * @param databaseType
-     * @return
      * @author cuiyongxu
      * @update Nov 13, 2015
      */

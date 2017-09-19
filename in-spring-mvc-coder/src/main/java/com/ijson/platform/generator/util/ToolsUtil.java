@@ -13,7 +13,6 @@ public class ToolsUtil {
      * 判断字符串是否以“/”结束，如果不是为其加上
      *
      * @param text 待处理的字符串
-     * @return
      */
     public static String endsWith(String text) {
         if (Validator.isNotNull(text)) {
@@ -27,7 +26,6 @@ public class ToolsUtil {
      * 判断字符串是否以“/”结束，如果不是为其加上
      *
      * @param text 待处理的字符串
-     * @return
      */
     public static boolean isendWith(String text) {
         boolean mark = true;
@@ -83,11 +81,7 @@ public class ToolsUtil {
             return false;
         }
         int count = text.toUpperCase().indexOf(keystr.toUpperCase());
-        if (count == -1) {
-            return false;
-        } else {
-            return true;
-        }
+        return count != -1;
     }
 
     public static boolean isstartWith(String text) {
@@ -105,7 +99,6 @@ public class ToolsUtil {
      * @param text   待格字任串
      * @param regx   规则
      * @param target 替换内容
-     * @return
      */
     public static String formatString(String text, String regx, String target) {
         if (Validator.isNull(text) || Validator.isNull(regx))
@@ -116,14 +109,12 @@ public class ToolsUtil {
     /**
      * 首字母大写
      *
-     * @param str
-     * @return
      */
     public static String toUpperFirst(String str) {
         String names[] = str.split("_");
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < names.length; i++) {
-            sb.append(names[i].substring(0, 1).toUpperCase() + names[i].substring(1));
+        StringBuilder sb = new StringBuilder();
+        for (String name : names) {
+            sb.append(name.substring(0, 1).toUpperCase()).append(name.substring(1));
         }
         return sb.toString();
     }
@@ -131,17 +122,15 @@ public class ToolsUtil {
     /**
      * 属性值生成,符合骆驼命名
      *
-     * @param str
-     * @return
      */
     public static String toCamelNamed(String str) {
         String names[] = str.split("_");
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < names.length; i++) {
             if (i == 0) {
                 sb.append(names[i].toLowerCase());
             } else {
-                sb.append(names[i].substring(0, 1).toUpperCase() + names[i].substring(1).toLowerCase());
+                sb.append(names[i].substring(0, 1).toUpperCase()).append(names[i].substring(1).toLowerCase());
             }
         }
         return sb.toString();
