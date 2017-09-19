@@ -1,6 +1,5 @@
 package com.ijson.platform.generator.template;
 
-import com.ijson.platform.common.util.SystemUtil;
 import com.ijson.platform.generator.model.ColumnEntity;
 import com.ijson.platform.api.model.ParamsVo;
 import com.ijson.platform.generator.model.TableEntity;
@@ -9,19 +8,20 @@ import com.ijson.platform.generator.util.FileOperate;
 import com.ijson.platform.common.util.Validator;
 
 import java.util.List;
+import java.util.Map;
 
 
 public class HibernateXmlBuilder implements TemplateHanlder {
 
-    public void execute(ParamsVo<TableEntity> vo) {
+    public void execute(ParamsVo<TableEntity> vo,Map<String, String> config) {
         List<TableEntity> tables = vo.getObjs();
         String prefix = Validator.getDefaultStr(String.valueOf(vo.getParams("prefix")), "src/main/");
-        createdHibernateXml(prefix, tables);
+        createdHibernateXml(prefix, tables,config);
     }
 
-    public void createdHibernateXml(String prefix, List<TableEntity> tables) {
-        String jarPath = SystemUtil.getInstance().getConstant("package_name");
-        String xmlPath = SystemUtil.getInstance().getConstant("fs_path") + "/" + prefix + "resources/hibernate/";
+    public void createdHibernateXml(String prefix, List<TableEntity> tables, Map<String, String> config) {
+        String jarPath = config.get("package_name");
+        String xmlPath = config.get("fs_path") + "/" + prefix + "resources/hibernate/";
         FileOperate.getInstance().newCreateFolder(xmlPath);
         if (!Validator.isEmpty(tables)) {
             int count = tables.size();

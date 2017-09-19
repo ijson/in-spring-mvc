@@ -18,5 +18,14 @@
             <artifactId>in-spring-mvc-common</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.ijson</groupId>
+            <artifactId>in-auto-config-zkclient</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
     </dependencies>
 </project>

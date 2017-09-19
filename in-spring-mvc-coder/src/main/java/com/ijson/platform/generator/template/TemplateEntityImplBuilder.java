@@ -1,6 +1,5 @@
 package com.ijson.platform.generator.template;
 
-import com.ijson.platform.common.util.SystemUtil;
 import com.ijson.platform.generator.model.ColumnEntity;
 import com.ijson.platform.api.model.ParamsVo;
 import com.ijson.platform.generator.model.TableEntity;
@@ -10,19 +9,20 @@ import com.ijson.platform.generator.util.ToolsUtil;
 import com.ijson.platform.common.util.Validator;
 
 import java.util.List;
+import java.util.Map;
 
 
 public class TemplateEntityImplBuilder implements TemplateHanlder {
 
-    public void execute(ParamsVo<TableEntity> vo) {
+    public void execute(ParamsVo<TableEntity> vo,Map<String, String> config) {
         List<TableEntity> tables = vo.getObjs();
         String prefix = Validator.getDefaultStr(String.valueOf(vo.getParams("prefix")), "src/main/");
-        getTemplateStr(prefix, tables);
+        getTemplateStr(prefix, tables,config);
     }
 
-    public void getTemplateStr(String prefix, List<TableEntity> tables) {
-        String classPath = SystemUtil.getInstance().getConstant("fs_path") + "/" + prefix + "java/"
-                + SystemUtil.getInstance().getConstant("package_name").replace(".", "/") + "/entity/";
+    public void getTemplateStr(String prefix, List<TableEntity> tables,Map<String, String> config) {
+        String classPath = config.get("fs_path") + "/" + prefix + "java/"
+                + config.get("package_name").replace(".", "/") + "/entity/";
         FileOperate.getInstance().newCreateFolder(classPath);
         if (!Validator.isEmpty(tables)) {
             int count = tables.size();
@@ -30,7 +30,7 @@ public class TemplateEntityImplBuilder implements TemplateHanlder {
                 StringBuffer result = new StringBuffer("");
                 TableEntity table = tables.get(i);
                 String tableName = table.getTableAttName();
-                result.append(getImports());
+                result.append(getImports(config));
                 result.append("@SuppressWarnings(\"serial\")\n");
                 result.append("public class " + tableName + " extends BaseEntity { \n\n");
                 result.append(getClassMethods(table.getColumns()));
@@ -45,8 +45,8 @@ public class TemplateEntityImplBuilder implements TemplateHanlder {
      *
      * @return
      */
-    private String getImports() {
-        StringBuffer result = new StringBuffer("package " + SystemUtil.getInstance().getConstant("package_name")
+    private String getImports(Map<String, String> config) {
+        StringBuffer result = new StringBuffer("package " + config.get("package_name")
                 + ".entity;\n\n");
         result.append("import com.ijson.platform.api.model.BaseEntity;\n");
         result.append("\n \n");

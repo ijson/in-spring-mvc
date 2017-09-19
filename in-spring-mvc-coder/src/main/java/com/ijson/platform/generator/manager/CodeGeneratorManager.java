@@ -4,6 +4,8 @@ package com.ijson.platform.generator.manager;
 import com.ijson.platform.api.model.ParamsVo;
 import com.ijson.platform.generator.model.TableEntity;
 
+import java.util.Map;
+
 /**
  * description: 代码
  *
@@ -16,5 +18,5 @@ public interface CodeGeneratorManager {
      *
      * @param vo 方法参数
      */
-    public void execute(ParamsVo<TableEntity> vo);
+    public void execute(ParamsVo<TableEntity> vo,Map<String,String> config);
 }

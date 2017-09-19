@@ -1,9 +1,8 @@
 
 package com.ijson.platform.generator.template;
 
-import com.ijson.platform.common.util.SystemUtil;
-import com.ijson.platform.common.util.Validator;
 import com.ijson.platform.api.model.ParamsVo;
+import com.ijson.platform.common.util.Validator;
 import com.ijson.platform.generator.model.TableEntity;
 import com.ijson.platform.generator.util.FileOperate;
 
@@ -16,16 +15,17 @@ import java.util.Set;
 
 /**
  * description:  生成bat文件
- * @author cuiyongxu 创建时间：Nov 13, 2015  
+ *
+ * @author cuiyongxu 创建时间：Nov 13, 2015
  */
 public class BatFileBuilder implements TemplateHanlder {
 
     /**
      * TODO 简单描述该方法的实现功能（可选）.
      */
-    public void execute(ParamsVo<TableEntity> vo) {
-        String fsPath = SystemUtil.getInstance().getConstant("fs_path");
-        String jarPath = SystemUtil.getInstance().getConstant("package_name");
+    public void execute(ParamsVo<TableEntity> vo, Map<String, String> config) {
+        String fsPath = config.get("fs_path");
+        String jarPath = config.get("package_name");
         String mvnContent = getMvnContent(jarPath);
         Map<String, String> map = System.getenv();
         Set<Entry<String, String>> entries = map.entrySet();
@@ -61,6 +61,7 @@ public class BatFileBuilder implements TemplateHanlder {
 
     /**
      * description:  elipse执行文件
+     *
      * @return
      * @author cuiyongxu
      * @update Nov 13, 2015
@@ -79,6 +80,7 @@ public class BatFileBuilder implements TemplateHanlder {
 
     /**
      * description:  elipse执行文件
+     *
      * @return
      * @author cuiyongxu
      * @update Nov 13, 2015

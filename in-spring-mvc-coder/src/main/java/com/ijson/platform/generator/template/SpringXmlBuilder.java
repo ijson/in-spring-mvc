@@ -1,6 +1,5 @@
 package com.ijson.platform.generator.template;
 
-import com.ijson.platform.common.util.SystemUtil;
 import com.ijson.platform.api.model.ParamsVo;
 import com.ijson.platform.generator.model.TableEntity;
 import com.ijson.platform.generator.util.FileOperate;
@@ -8,19 +7,20 @@ import com.ijson.platform.generator.util.ToolsUtil;
 import com.ijson.platform.common.util.Validator;
 
 import java.util.List;
+import java.util.Map;
 
 
 public class SpringXmlBuilder implements TemplateHanlder {
 
-    public void execute(ParamsVo<TableEntity> vo) {
+    public void execute(ParamsVo<TableEntity> vo,Map<String, String> config) {
         List<TableEntity> tables = vo.getObjs();
         String prefix = Validator.getDefaultStr(String.valueOf(vo.getParams("prefix")), "src/main/");
-        createSpringXml(prefix, tables);
+        createSpringXml(prefix, tables,config);
     }
 
-    public void createSpringXml(String prefix, List<TableEntity> tables) {
-        String jarPath = SystemUtil.getInstance().getConstant("package_name");
-        String xmlPath = SystemUtil.getInstance().getConstant("fs_path") + "/" + prefix + "resources/spring/";
+    public void createSpringXml(String prefix, List<TableEntity> tables, Map<String, String> config) {
+        String jarPath = config.get("package_name");
+        String xmlPath = config.get("fs_path") + "/" + prefix + "resources/spring/";
         FileOperate.getInstance().newCreateFolder(xmlPath);
         if (!Validator.isEmpty(tables)) {
             int count = tables.size();
@@ -38,9 +38,9 @@ public class SpringXmlBuilder implements TemplateHanlder {
             result.append("    default-autowire=\"byName\"> \n\n");
             for (int i = 0; i < count; i++) {
                 TableEntity table = tables.get(i);
-                resultDao.append(getDaoConfig(jarPath, table.getTableName()));
-                resultManager.append(getManagerConfig(jarPath, table.getTableName()));
-                resultService.append(getServiceConfig(jarPath, table.getTableName()));
+                resultDao.append(getDaoConfig(jarPath, table.getTableName(),config));
+                resultManager.append(getManagerConfig(jarPath, table.getTableName(),config));
+                resultService.append(getServiceConfig(jarPath, table.getTableName(),config));
             }
             result.append("   <!-- dao config start -->\n" + resultDao.toString() + "   <!-- dao config stop -->\n\n");
             result.append("   <!-- manager config start -->\n" + resultManager.toString()
@@ -54,27 +54,27 @@ public class SpringXmlBuilder implements TemplateHanlder {
         }
     }
 
-    private String getDaoConfig(String jarPath, String tableName) {
+    private String getDaoConfig(String jarPath, String tableName, Map<String, String> config) {
         StringBuffer result = new StringBuffer("");
-        String tabPrefix = SystemUtil.getInstance().getConstant("table_prefix").toLowerCase();
+        String tabPrefix = config.get("table_prefix").toLowerCase();
         String id = ToolsUtil.toCamelNamed(tableName.replaceAll(tabPrefix, "")) + "Dao";
         String name = ".dao." + ToolsUtil.toUpperFirst(tableName.replaceAll(tabPrefix, "")) + "DaoImpl";
         result.append("   <bean id=\"" + id + "\" class=\"" + jarPath + name + "\" parent=\"abstractDao\"/>\n");
         return result.toString();
     }
 
-    private String getManagerConfig(String jarPath, String tableName) {
+    private String getManagerConfig(String jarPath, String tableName, Map<String, String> config) {
         StringBuffer result = new StringBuffer("");
-        String tabPrefix = SystemUtil.getInstance().getConstant("table_prefix").toLowerCase();
+        String tabPrefix = config.get("table_prefix").toLowerCase();
         String id = ToolsUtil.toCamelNamed(tableName.replaceAll(tabPrefix, "")) + "Manager";
         String name = ToolsUtil.toUpperFirst(tableName.replaceAll(tabPrefix, "")) + "ManagerImpl";
         result.append("   <bean id=\"" + id + "\" class=\"" + jarPath + ".manager.impl." + name + "\"></bean>\n");
         return result.toString();
     }
 
-    private String getServiceConfig(String jarPath, String tableName) {
+    private String getServiceConfig(String jarPath, String tableName, Map<String, String> config) {
         StringBuffer result = new StringBuffer("");
-        String tabPrefix = SystemUtil.getInstance().getConstant("table_prefix").toLowerCase();
+        String tabPrefix = config.get("table_prefix").toLowerCase();
         String id = ToolsUtil.toCamelNamed(tableName.replaceAll(tabPrefix, "")) + "Service";
         String name = ToolsUtil.toUpperFirst(tableName.replaceAll(tabPrefix, "")) + "ServiceImpl";
         result.append("   <bean id=\"" + id + "\" class=\"" + jarPath + ".manager." + name + "\"></bean>\n");

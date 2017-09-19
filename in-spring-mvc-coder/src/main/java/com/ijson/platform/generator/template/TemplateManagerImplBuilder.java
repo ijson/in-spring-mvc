@@ -1,6 +1,5 @@
 package com.ijson.platform.generator.template;
 
-import com.ijson.platform.common.util.SystemUtil;
 import com.ijson.platform.common.util.Validator;
 import com.ijson.platform.generator.model.ColumnEntity;
 import com.ijson.platform.api.model.ParamsVo;
@@ -10,36 +9,39 @@ import com.ijson.platform.generator.util.FileOperate;
 import com.ijson.platform.generator.util.ToolsUtil;
 
 import java.util.List;
+import java.util.Map;
 
 
 public class TemplateManagerImplBuilder implements TemplateHanlder {
 
-    private String tabPrefix = SystemUtil.getInstance().getConstant("table_prefix").toLowerCase();
-    private String useCache = SystemUtil.getInstance().getConstant("use_cache").toUpperCase();
+    private String tabPrefix;
+    private String useCache;
 
-    public void execute(ParamsVo<TableEntity> vo) {
+    public void execute(ParamsVo<TableEntity> vo, Map<String, String> config) {
+        tabPrefix = config.get("table_prefix").toLowerCase();
+        useCache = config.get("use_cache").toUpperCase();
         List<TableEntity> tables = vo.getObjs();
         String prefix = Validator.getDefaultStr(String.valueOf(vo.getParams("prefix")), "src/main/");
-        createdManager(prefix, tables);
-        createdManagerImpl(prefix, tables);
+        createdManager(prefix, tables,config);
+        createdManagerImpl(prefix, tables,config);
 
     }
 
     /**
      * 生成manager接口类
      */
-    public void createdManager(String prefix, List<TableEntity> tables) {
-        String managerPath = SystemUtil.getInstance().getConstant("fs_path") + "/" + prefix + "java/"
-                + SystemUtil.getInstance().getConstant("package_name").replace(".", "/") + "/manager/";
+    public void createdManager(String prefix, List<TableEntity> tables, Map<String, String> config) {
+        String managerPath = config.get("fs_path") + "/" + prefix + "java/"
+                + config.get("package_name").replace(".", "/") + "/manager/";
         FileOperate.getInstance().newCreateFolder(managerPath);
-        FileOperate.getInstance().newCreateFile(managerPath + "UnityBaseManager.java", getUnityManager());
+        FileOperate.getInstance().newCreateFile(managerPath + "UnityBaseManager.java", getUnityManager(config));
         if (!Validator.isEmpty(tables)) {
             int count = tables.size();
             for (int i = 0; i < count; i++) {
                 StringBuffer result = new StringBuffer("");
                 TableEntity table = tables.get(i);
                 String tableName = table.getTableAttName();
-                result.append(getManagerImports(tableName));
+                result.append(getManagerImports(tableName,config));
                 result.append("public interface " + tableName + "Manager extends UnityBaseManager<" + tableName
                         + "> { \n\n");
                 //result.append(getManagerClassMethods(tableName));
@@ -52,8 +54,8 @@ public class TemplateManagerImplBuilder implements TemplateHanlder {
     /**
      * description: 生成模块公共接口类
      */
-    private String getUnityManager() {
-        StringBuffer result = new StringBuffer("package " + SystemUtil.getInstance().getConstant("package_name")
+    private String getUnityManager(Map<String,String> config) {
+        StringBuffer result = new StringBuffer("package " + config.get("package_name")
                 + ".manager;\n\n");
         result.append("import com.ijson.platform.database.model.Page;\n");
         result.append("import com.ijson.platform.api.manager.BaseManager;\n");
@@ -71,11 +73,11 @@ public class TemplateManagerImplBuilder implements TemplateHanlder {
      *
      * @return
      */
-    private String getManagerImports(String tableName) {
-        StringBuffer result = new StringBuffer("package " + SystemUtil.getInstance().getConstant("package_name")
+    private String getManagerImports(String tableName,Map<String,String> config) {
+        StringBuffer result = new StringBuffer("package " + config.get("package_name")
                 + ".manager;\n\n");
         result
-                .append("import " + SystemUtil.getInstance().getConstant("package_name") + ".entity." + tableName
+                .append("import " + config.get("package_name") + ".entity." + tableName
                         + ";\n");
         result.append("\n \n");
         return result.toString();
@@ -84,12 +86,12 @@ public class TemplateManagerImplBuilder implements TemplateHanlder {
     /**
      * 生成manager接口的实现类
      */
-    public void createdManagerImpl(String prefix, List<TableEntity> tables) {
-        String managerPath = SystemUtil.getInstance().getConstant("fs_path") + "/" + prefix + "java/"
-                + SystemUtil.getInstance().getConstant("package_name").replace(".", "/") + "/manager/impl/";
+    public void createdManagerImpl(String prefix, List<TableEntity> tables, Map<String, String> config) {
+        String managerPath = config.get("fs_path") + "/" + prefix + "java/"
+                + config.get("package_name").replace(".", "/") + "/manager/impl/";
 
-        String pluginPath = SystemUtil.getInstance().getConstant("fs_path") + "/" + prefix + "java/"
-                + SystemUtil.getInstance().getConstant("package_name").replace(".", "/") + "/manager/plugins/";
+        String pluginPath = config.get("fs_path") + "/" + prefix + "java/"
+                + config.get("package_name").replace(".", "/") + "/manager/plugins/";
         FileOperate.getInstance().newCreateFolder(managerPath);
         FileOperate.getInstance().newCreateFolder(pluginPath);
         if (!Validator.isEmpty(tables)) {
@@ -99,9 +101,9 @@ public class TemplateManagerImplBuilder implements TemplateHanlder {
                 TableEntity table = tables.get(i);
                 String tableName = table.getTableAttName();
                 String beanIdName = ToolsUtil.toCamelNamed(table.getTableName().replaceAll(tabPrefix, ""));
-                result.append(getManagerImplImports(tableName));
+                result.append(getManagerImplImports(tableName,config));
                 result.append("public class " + tableName + "ManagerImpl implements " + tableName + "Manager { \n\n");
-                result.append(getManagerImplClassMethods(tableName, beanIdName, table.getPKColumn(), table));
+                result.append(getManagerImplClassMethods(tableName, beanIdName, table.getPKColumn(), table,config));
                 result.append("} \n");
                 FileOperate.getInstance()
                         .newCreateFile(managerPath + tableName + "ManagerImpl.java", result.toString());
@@ -114,8 +116,8 @@ public class TemplateManagerImplBuilder implements TemplateHanlder {
      *
      * @return
      */
-    private String getManagerImplImports(String tableName) {
-        StringBuffer result = new StringBuffer("package " + SystemUtil.getInstance().getConstant("package_name")
+    private String getManagerImplImports(String tableName,Map<String,String> config) {
+        StringBuffer result = new StringBuffer("package " + config.get("package_name")
                 + ".manager.impl;\n\n");
         result.append("import java.util.List;\n");
         result.append("import java.util.Map;\n");
@@ -128,9 +130,9 @@ public class TemplateManagerImplBuilder implements TemplateHanlder {
         result.append("import com.ijson.platform.api.manager.PluginConnector;\n");
 
         result
-                .append("import " + SystemUtil.getInstance().getConstant("package_name") + ".entity." + tableName
+                .append("import " + config.get("package_name") + ".entity." + tableName
                         + ";\n");
-        result.append("import " + SystemUtil.getInstance().getConstant("package_name") + ".manager." + tableName
+        result.append("import " + config.get("package_name") + ".manager." + tableName
                 + "Manager;\n");
         result.append("import com.ijson.platform.common.exception.MVCBusinessException;\n");
         result.append("\n \n");
@@ -142,10 +144,10 @@ public class TemplateManagerImplBuilder implements TemplateHanlder {
      *
      * @return
      */
-    private String getManagerImplClassMethods(String tableName, String beanIdName, String pkCol, TableEntity table) {
+    private String getManagerImplClassMethods(String tableName, String beanIdName, String pkCol, TableEntity table,Map<String,String> config) {
         StringBuffer result = new StringBuffer();
         String dao = beanIdName + "Dao";
-        String jarPath = SystemUtil.getInstance().getConstant("package_name");
+        String jarPath = config.get("package_name");
         result.append("    protected IDao " + dao + ";\n");
         result.append("    protected Map<String, PluginConnector" + "> plugins;\n");
 

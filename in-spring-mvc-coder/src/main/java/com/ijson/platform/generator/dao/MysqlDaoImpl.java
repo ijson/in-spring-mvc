@@ -1,6 +1,5 @@
 package com.ijson.platform.generator.dao;
 
-import com.ijson.platform.common.util.SystemUtil;
 import com.ijson.platform.common.util.Validator;
 import com.ijson.platform.generator.model.ColumnEntity;
 import com.ijson.platform.generator.model.TableEntity;
@@ -10,19 +9,17 @@ import com.ijson.platform.generator.util.ToolsUtil;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class MysqlDaoImpl implements IDao {
 
     private ConnctionData conn;
 
-    public MysqlDaoImpl() {
-        conn = ConnctionData.getInstance(SystemUtil.getInstance().getConstant("jdbc.url"), SystemUtil.getInstance()
-                .getConstant("jdbc.driver"), SystemUtil.getInstance().getConstant("jdbc.user"), SystemUtil
-                .getInstance().getConstant("jdbc.password"));
-    }
+    public List<TableEntity> getTables(String[] tableNames, Map<String, String> config) {
+        conn = ConnctionData.getInstance(config.get("jdbc.url"), config.get("jdbc.driver"), config.get("jdbc.user"), config.get("jdbc.password"));
 
-    public List<TableEntity> getTables(String[] tableNames) {
+
         List<TableEntity> result = new ArrayList<TableEntity>();
         Connection connection = null;
         PreparedStatement stmt = null;
@@ -33,7 +30,7 @@ public class MysqlDaoImpl implements IDao {
                 System.out.println("连接数据库成功...");
             }
             int count = tableNames.length;
-            String tabPrefix = SystemUtil.getInstance().getConstant("table_prefix").toLowerCase();
+            String tabPrefix = config.get("table_prefix").toLowerCase();
             for (int q = 0; q < count; q++) {
                 String sql = "select * from " + tableNames[q].toLowerCase();
                 stmt = connection.prepareStatement(sql);
