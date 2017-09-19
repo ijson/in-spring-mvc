@@ -55,9 +55,9 @@ public class TemplateManagerImplBuilder implements TemplateHanlder {
     private String getUnityManager() {
         StringBuffer result = new StringBuffer("package " + SystemUtil.getInstance().getConstant("package_name")
                 + ".manager;\n\n");
-        result.append("import cn.datamining.database.model.Page;\n");
-        result.append("import cn.datamining.api.manager.BaseManager;\n");
-        result.append("import cn.datamining.api.obj.ParamsVo;\n");
+        result.append("import com.ijson.platform.database.model.Page;\n");
+        result.append("import com.ijson.platform.api.manager.BaseManager;\n");
+        result.append("import com.ijson.platform.api.model.ParamsVo;\n");
         result.append("\n \n     /**\n       * description: 统一manager接口\n       */\n");
         result.append("public interface UnityBaseManager<E> extends BaseManager<E> { \n\n");
         result.append("    /**\n      * 获取信息列表（带分页）\n      * @param vo 方法参数\n      * @return 返回信息列表\n    */\n");
@@ -120,19 +120,19 @@ public class TemplateManagerImplBuilder implements TemplateHanlder {
         result.append("import java.util.List;\n");
         result.append("import java.util.Map;\n");
 
-        result.append("import cn.datamining.database.model.MethodParam;\n");
-        result.append("import cn.datamining.database.model.Page;\n");
-        result.append("import cn.datamining.database.db.IDao;\n");
-        result.append("import cn.datamining.api.obj.ParamsVo;\n");
-        result.append("import cn.datamining.tools.Validator;\n");
-        result.append("import cn.datamining.api.manager.PluginConnector;\n");
+        result.append("import com.ijson.platform.database.model.MethodParam;\n");
+        result.append("import com.ijson.platform.database.model.Page;\n");
+        result.append("import com.ijson.platform.generator.dao.IDao;\n");
+        result.append("import com.ijson.platform.api.model.ParamsVo;\n");
+        result.append("import com.ijson.platform.common.util.Validator;\n");
+        result.append("import com.ijson.platform.api.manager.PluginConnector;\n");
 
         result
                 .append("import " + SystemUtil.getInstance().getConstant("package_name") + ".entity." + tableName
                         + ";\n");
         result.append("import " + SystemUtil.getInstance().getConstant("package_name") + ".manager." + tableName
                 + "Manager;\n");
-        result.append("import cn.datamining.api.exception.BusinessException;\n");
+        result.append("import com.ijson.platform.common.exception.MVCBusinessException;\n");
         result.append("\n \n");
         return result.toString();
     }

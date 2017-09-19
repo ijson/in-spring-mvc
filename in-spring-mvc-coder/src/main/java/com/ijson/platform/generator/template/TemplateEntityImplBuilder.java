@@ -48,7 +48,7 @@ public class TemplateEntityImplBuilder implements TemplateHanlder {
     private String getImports() {
         StringBuffer result = new StringBuffer("package " + SystemUtil.getInstance().getConstant("package_name")
                 + ".entity;\n\n");
-        result.append("import cn.datamining.api.entity.BaseEntity;\n");
+        result.append("import com.ijson.platform.api.model.BaseEntity;\n");
         result.append("\n \n");
         return result.toString();
     }

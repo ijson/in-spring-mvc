@@ -48,7 +48,7 @@ public class TemplateDaoImplBuilder implements TemplateHanlder {
     private String getImports() {
         StringBuffer result = new StringBuffer("package " + SystemUtil.getInstance().getConstant("package_name")
                 + ".dao;\n\n");
-        result.append("import cn.datamining.database.db.DaoImpl;\n");
+        result.append("import com.ijson.platform.database.db.DaoImpl;\n");
         result.append("\n \n");
         return result.toString();
     }
