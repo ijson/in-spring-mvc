@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+     
+   <!-- myibatis 配置 start -->
+    <bean id="ibatisSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+      <property name="configLocation" value="classpath:spring/configuration.xml" /> 
+      <property name="mapperLocations" value="classpath*:ibatis/sqlmaps/*.xml"/>
+      <property name="dataSource" ref="dataSource" /> 
+  </bean>   
+  <bean id="ibatisDao" class="com.zbx.database.db.ibatis.DaoIbatisImpl" >
+  	  <property name="sqlSessionFactory" ref="ibatisSessionFactory" /> 
+  </bean>
+  <!-- myibatis 配置 end -->
+
+   <bean id="abstractDao" class="com.zbx.database.db.DaoImpl" abstract="true">
+  	    <property name="ibatisDao" ref="ibatisDao" /> 
+   </bean>
+
+	<bean id="springContextLoader" class="com.zbx.database.constant.SpringContextLoader"/>
+	
+	<bean id="resultCacheInterceptor" class="com.zbx.database.interceptor.MethodCacheInterceptor"/>
+</beans>
