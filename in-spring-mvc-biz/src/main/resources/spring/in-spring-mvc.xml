@@ -50,12 +50,12 @@
     <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 
     <!-- 统一异常处理  -->
-    <beans:bean id="unityException" class="com.ijson.platform.interceptor.UnityExceptionResolver"/>
+    <beans:bean id="unityException" class="com.ijson.platform.platform.interceptor.UnityExceptionResolver"/>
 
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/><!-- 配置Token拦截器，防止用户重复提交数据 -->
-            <beans:bean class="com.ijson.platform.interceptor.TokenInterceptor"/>
+            <beans:bean class="com.ijson.platform.platform.interceptor.TokenInterceptor"/>
         </mvc:interceptor>
         <!-- 国际化拦截器 -->
         <mvc:interceptor>

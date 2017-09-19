@@ -67,11 +67,11 @@
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="save*" propagation="REQUIRED"
-                       rollback-for="com.ijson.common.exception.MVCBusinessException"/>
+                       rollback-for="com.ijson.platform.common.exception.MVCBusinessException"/>
             <tx:method name="delete*" propagation="REQUIRED"
-                       rollback-for="com.ijson.common.exception.MVCBusinessException"/>
+                       rollback-for="com.ijson.platform.common.exception.MVCBusinessException"/>
             <tx:method name="edit*" propagation="REQUIRED"
-                       rollback-for="com.ijson.common.exception.MVCBusinessException"/>
+                       rollback-for="com.ijson.platform.common.exception.MVCBusinessException"/>
             <tx:method name="*" propagation="SUPPORTS"/>
         </tx:attributes>
     </tx:advice>

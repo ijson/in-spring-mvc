@@ -35,13 +35,13 @@
     </bean>
 
     <!-- Hibernate配置 end -->
-    <bean id="hibernateDao" class="com.ijson.database.db.hibernate.DaoHibernateImpl">
+    <bean id="hibernateDao" class="com.ijson.platform.database.db.hibernate.DaoHibernateImpl">
         <property name="hibernateTemplate" ref="hibernateTemplate"></property>
     </bean>
 
-    <bean id="abstractDao" class="com.ijson.database.db.DaoImpl" abstract="true">
+    <bean id="abstractDao" class="com.ijson.platform.database.db.DaoImpl" abstract="true">
         <property name="hibernateDao" ref="hibernateDao"/>
     </bean>
 
-    <bean id="resultCacheInterceptor" class="com.ijson.database.interceptor.MethodCacheInterceptor"/>
+    <bean id="resultCacheInterceptor" class="com.ijson.platform.database.interceptor.MethodCacheInterceptor"/>
 </beans>
