@@ -75,4 +75,7 @@ public class MethodParam {
         this.sqlStr = sqlStr;
     }
 
+    public void setParams(String key,Object value){
+        this.params.put(key,value);
+    }
 }

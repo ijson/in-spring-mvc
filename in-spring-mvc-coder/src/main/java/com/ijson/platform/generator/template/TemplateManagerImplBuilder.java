@@ -114,7 +114,7 @@ public class TemplateManagerImplBuilder implements TemplateHanlder {
                 "import java.util.Map;\n" +
                 "import com.ijson.platform.database.model.MethodParam;\n" +
                 "import com.ijson.platform.database.model.Page;\n" +
-                "import com.ijson.platform.generator.dao.IDao;\n" +
+                "import com.ijson.platform.database.db.IDao;\n" +
                 "import com.ijson.platform.api.model.ParamsVo;\n" +
                 "import com.ijson.platform.common.util.Validator;\n" +
                 "import com.ijson.platform.api.manager.PluginConnector;\n" +
@@ -228,7 +228,7 @@ public class TemplateManagerImplBuilder implements TemplateHanlder {
      */
     private String saveInfo(String daoStr, String tableName, String beanIdName, String pkCol) {
         StringBuilder result = new StringBuilder();
-        result.append("    public String saveInfo(ParamsVo<").append(tableName).append("> vo) throws BusinessException { \n");
+        result.append("    public String saveInfo(ParamsVo<").append(tableName).append("> vo) throws MVCBusinessException { \n");
         result.append("      ").append(tableName).append(" ").append(beanIdName).append(" = vo.getObj();\n");
         //		result
         //				.append("      String infoId = Validator.generate();\n      //定义对象缓存KEY,如果不需要缓存对象请不要对变量赋值，如果要缓存对象建议使用infoId\n");
@@ -253,7 +253,7 @@ public class TemplateManagerImplBuilder implements TemplateHanlder {
      */
     private String editInfo(String daoStr, String tableName, String beanIdName, String pkCol) {
         StringBuilder result = new StringBuilder();
-        result.append("    public boolean editInfo(ParamsVo<").append(tableName).append("> vo) throws BusinessException { \n");
+        result.append("    public boolean editInfo(ParamsVo<").append(tableName).append("> vo) throws MVCBusinessException { \n");
         result.append("      ").append(tableName).append(" ").append(beanIdName).append(" = vo.getObj();\n");
         result.append("      if (Validator.isNotNull(").append(beanIdName).append(".get").append(pkCol).append("())) {\n");
 
@@ -277,7 +277,7 @@ public class TemplateManagerImplBuilder implements TemplateHanlder {
      */
     private String deleteInfo(String daoStr, String tableName, String beanIdName, String pkCol) {
         StringBuilder result = new StringBuilder();
-        result.append("    public boolean deleteInfo(ParamsVo<").append(tableName).append("> vo) throws BusinessException { \n");
+        result.append("    public boolean deleteInfo(ParamsVo<").append(tableName).append("> vo) throws MVCBusinessException { \n");
         result.append("      String infoId = vo.getInfoId();\n");
         result.append("      if (Validator.isNull(infoId)){\n          return false; \n      }\n");
         //		result.append("      String cacheKey=\"\";\n");
