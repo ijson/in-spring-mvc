@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring/in-spring-database.xml")
-public class DBTest {
+public class DatabaseTest {
 
     @Test
     public void create(){
