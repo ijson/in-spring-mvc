@@ -10,7 +10,6 @@ import java.util.List;
 
 /**
  * description: 持久层的实现 可以重写此类的方法来满足特定的业务要求
- *
  */
 public abstract class DaoImpl implements IDao {
 
@@ -133,6 +132,41 @@ public abstract class DaoImpl implements IDao {
                     .selectById(param.getSpanceName(), param.getKey(), param.getInfoId(), param.getCacheId());
         } else
             return ibatisDao.selectById(param.getSpanceName(), param.getKey(), param.getInfoId(), param.getCacheId());
+    }
+
+    /**
+     * description:  列表查询,并转型为object
+     *
+     * @param param
+     * @return
+     * @author cuiyongxu
+     * @update Dec 11, 2015
+     */
+    @Override
+    public List selectByObject(MethodParam param) {
+        if (isHibernateDao()) {
+            return hibernateDao
+                    .selectByObject(param);
+        } else
+            return ibatisDao.selectByObject(param);
+
+    }
+
+    /**
+     * description:  获取唯一对象实例,主要转为vo等
+     *
+     * @param param
+     * @return
+     * @author cuiyongxu
+     * @update Dec 11, 2015
+     */
+    @Override
+    public Object selectSingleByObject(MethodParam param) {
+        if (isHibernateDao()) {
+            return hibernateDao
+                    .selectSingleByObject(param);
+        } else
+            return ibatisDao.selectSingleByObject(param);
     }
 
     public void setHibernateDao(DaoHibernateImpl hibernateDao) {
