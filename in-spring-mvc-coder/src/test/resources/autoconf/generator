@@ -1,6 +1,7 @@
 fs_path=/Users/cuiyongxu/Desktop/in-user
+project_name=com.ijson.user
 package_name=com.ijson.user
-builder_tables=runoob_tbl
+builder_tables=in_user
 use_cache=T
 table_prefix=
 jdbc.driver=com.mysql.jdbc.Driver

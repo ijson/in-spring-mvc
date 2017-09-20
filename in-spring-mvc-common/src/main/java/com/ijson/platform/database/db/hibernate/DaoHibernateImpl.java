@@ -8,6 +8,7 @@ import com.ijson.platform.common.util.Validator;
 import com.ijson.platform.database.db.BaseDao;
 import com.ijson.platform.database.model.MethodParam;
 import com.ijson.platform.database.model.Page;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -23,6 +24,7 @@ import java.util.Map;
  *
  * @author cuiyongxu 创建时间：Nov 18, 2015
  */
+@Slf4j
 public class DaoHibernateImpl extends HibernateDaoSupport implements BaseDao {
 
     private CacheManager cache;
@@ -172,6 +174,7 @@ public class DaoHibernateImpl extends HibernateDaoSupport implements BaseDao {
                 cache.createCacheObject(param.getCacheId(), param.getVaule());
             }
         } catch (Exception e) {
+            log.error("执行insert方法出错:",e);
             throw new DBServiceException("执行insert方法出错");
         }
         return true;
