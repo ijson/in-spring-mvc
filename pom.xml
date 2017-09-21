@@ -20,7 +20,6 @@
     <modules>
         <module>in-spring-mvc-biz</module>
         <module>in-spring-mvc-common</module>
-        <module>in-spring-mvc-coder</module>
     </modules>
 
 
