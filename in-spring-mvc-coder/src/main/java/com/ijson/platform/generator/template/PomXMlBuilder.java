@@ -1,7 +1,7 @@
 package com.ijson.platform.generator.template;
 
 
-import com.ijson.platform.api.model.ParamsVo;
+import com.ijson.platform.generator.model.ParamsVo;
 import com.ijson.platform.generator.model.TableEntity;
 import com.ijson.platform.generator.util.FileOperate;
 
@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class PomXMlBuilder implements TemplateHanlder {
 
-    public void execute(ParamsVo<TableEntity> vo,Map<String, String> config) {
+    public void execute(ParamsVo<TableEntity> vo, Map<String, String> config) {
         //List<TableEntity> tables = vo.getObjs();
         //String prefix = Validator.getDefaultStr(String.valueOf(vo.getParams("prefix")), "src/main/");
         createdPomXml(config);

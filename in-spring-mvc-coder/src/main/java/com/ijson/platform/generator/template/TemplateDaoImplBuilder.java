@@ -1,9 +1,9 @@
 package com.ijson.platform.generator.template;
 
-import com.ijson.platform.api.model.ParamsVo;
+import com.ijson.platform.generator.model.ParamsVo;
 import com.ijson.platform.generator.model.TableEntity;
 import com.ijson.platform.generator.util.FileOperate;
-import com.ijson.platform.common.util.Validator;
+import com.ijson.platform.generator.util.Validator;
 
 import java.util.List;
 import java.util.Map;
@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class TemplateDaoImplBuilder implements TemplateHanlder {
 
-    public void execute(ParamsVo<TableEntity> vo,Map<String, String> config) {
+    public void execute(ParamsVo<TableEntity> vo, Map<String, String> config) {
         List<TableEntity> tables = vo.getObjs();
         String prefix = Validator.getDefaultStr(String.valueOf(vo.getParams("prefix")), "src/main/");
         createdDaoImpl(prefix, tables,config);
