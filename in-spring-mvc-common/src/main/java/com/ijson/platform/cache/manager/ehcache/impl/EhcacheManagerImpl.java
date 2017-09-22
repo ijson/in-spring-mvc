@@ -126,7 +126,6 @@ public class EhcacheManagerImpl implements CacheManager {
         return list;
     }
 
-    @SuppressWarnings("unchecked")
     public List<String> getAllKeys() {
         return getCache().getKeys();
     }

@@ -17,7 +17,7 @@ public interface CacheManager extends IBaseCache {
      * @author cuiyongxu
      * @update Jul 3, 2015
      */
-    public boolean createCacheObject(String key, Object object);
+    boolean createCacheObject(String key, Object object);
 
     /**
      * description: 检查是否存在缓存
@@ -27,7 +27,7 @@ public interface CacheManager extends IBaseCache {
      * @author cuiyongxu
      * @update Jul 3, 2015
      */
-    public boolean checkCacheObject(String key);
+    boolean checkCacheObject(String key);
 
     /**
      * description: 获取缓存结果集，主要应用于jdbc结果集缓存。(扩展应用)
@@ -37,7 +37,7 @@ public interface CacheManager extends IBaseCache {
      * @author cuiyongxu
      * @update Jul 3, 2015
      */
-    public Object getCacheObjectByKey(String key);
+    Object getCacheObjectByKey(String key);
 
     /**
      * description: 获取缓存结果集，主要应用于jdbc结果集缓存。(扩展应用)
@@ -47,7 +47,7 @@ public interface CacheManager extends IBaseCache {
      * @author cuiyongxu
      * @update Jul 3, 2015
      */
-    public Object getCacheCloneByKey(String key);
+    Object getCacheCloneByKey(String key);
 
     /**
      * description: 获取list对象集合
@@ -57,7 +57,7 @@ public interface CacheManager extends IBaseCache {
      * @author cuiyongxu
      * @update Jul 3, 2015
      */
-    public List<Object> getObjects(List<String> keys);
+    List<Object> getObjects(List<String> keys);
 
     /**
      * description: 获取list对象集合
@@ -68,7 +68,7 @@ public interface CacheManager extends IBaseCache {
      * @author cuiyongxu
      * @update Jul 3, 2015
      */
-    public List<Object> getObjects(List<String> keys, String prefix);
+    List<Object> getObjects(List<String> keys, String prefix);
 
     /**
      * description: 获取list对象集合
@@ -80,7 +80,7 @@ public interface CacheManager extends IBaseCache {
      * @author cuiyongxu
      * @update Jul 3, 2015
      */
-    public List<String> getObjects(List<String> keys, String prefix, List<Object> objs);
+    List<String> getObjects(List<String> keys, String prefix, List<Object> objs);
 
     /**
      * description: 得到此域中所有缓存的key
@@ -89,7 +89,7 @@ public interface CacheManager extends IBaseCache {
      * @author cuiyongxu
      * @update Jul 3, 2015
      */
-    public List<String> getAllKeys();
+    List<String> getAllKeys();
 
     /**
      * description: 删除缓存对象
@@ -99,7 +99,7 @@ public interface CacheManager extends IBaseCache {
      * @author cuiyongxu
      * @update Jul 3, 2015
      */
-    public boolean removeCacheObject(String key);
+    boolean removeCacheObject(String key);
 
     /**
      * description: 更新缓存对象
@@ -110,7 +110,7 @@ public interface CacheManager extends IBaseCache {
      * @author cuiyongxu
      * @update Jul 3, 2015
      */
-    public boolean updateCacheObject(String key, Object value);
+    boolean updateCacheObject(String key, Object value);
 
     /**
      * description:    关闭ehcache缓存，每次调用完cache，需要关闭缓存。
@@ -118,7 +118,7 @@ public interface CacheManager extends IBaseCache {
      * @author cuiyongxu
      * @update Jul 3, 2015
      */
-    public void shutdownCache();
+    void shutdownCache();
 
     /**
      * description:  清空空间内所有缓存
@@ -126,5 +126,5 @@ public interface CacheManager extends IBaseCache {
      * @author cuiyongxu
      * @update Jul 3, 2015
      */
-    public void removeAll();
+    void removeAll();
 }

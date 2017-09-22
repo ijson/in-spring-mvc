@@ -10,7 +10,6 @@ public class CacheManagerTest {
 
     private CacheManager cache = new EhcacheManagerImpl();
 
-
     @Test
     public void saveOrGet() {
         cache.createCacheObject("555", "6666");

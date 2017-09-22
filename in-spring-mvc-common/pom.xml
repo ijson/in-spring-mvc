@@ -18,11 +18,11 @@
     </properties>
 
     <dependencies>
-        <!-- <dependency>
+        <dependency>
              <groupId>com.ijson</groupId>
              <artifactId>in-auto-config-zkclient</artifactId>
              <version>1.0.0</version>
-         </dependency>-->
+         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>

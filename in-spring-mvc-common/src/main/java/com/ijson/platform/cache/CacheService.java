@@ -18,7 +18,7 @@ public interface CacheService {
      * @author cuiyongxu
      * @update Jul 3, 2015
      */
-    public boolean createCacheObject(String cacheName, String key, Object object);
+    boolean createCacheObject(String cacheName, String key, Object object);
 
     /**
      * description: 检查是否存在缓存
@@ -28,7 +28,7 @@ public interface CacheService {
      * @author cuiyongxu
      * @update Jul 3, 2015
      */
-    public boolean checkCacheObject(String cacheName, String key);
+    boolean checkCacheObject(String cacheName, String key);
 
     /**
      * description: 获取缓存结果集，主要应用于jdbc结果集缓存。(扩展应用)
@@ -38,7 +38,7 @@ public interface CacheService {
      * @author cuiyongxu
      * @update Jul 3, 2015
      */
-    public Object getCacheObjectByKey(String cacheName, String key);
+    Object getCacheObjectByKey(String cacheName, String key);
 
     /**
      * description: 获取list对象集合
@@ -49,7 +49,7 @@ public interface CacheService {
      * @author cuiyongxu
      * @update Jul 3, 2015
      */
-    public List<Object> getObjects(String cacheName, List<String> keys, String prefix);
+    List<Object> getObjects(String cacheName, List<String> keys, String prefix);
 
     /**
      * description: 获取list对象集合
@@ -61,7 +61,7 @@ public interface CacheService {
      * @author cuiyongxu
      * @update Jul 3, 2015
      */
-    public List<String> getObjects(String cacheName, List<String> keys, String prefix, List<Object> objs);
+    List<String> getObjects(String cacheName, List<String> keys, String prefix, List<Object> objs);
 
     /**
      * description: 删除缓存对象
@@ -71,8 +71,8 @@ public interface CacheService {
      * @author cuiyongxu
      * @update Jul 3, 2015
      */
-    public boolean removeCacheObject(String cacheName, String key);
+    boolean removeCacheObject(String cacheName, String key);
 
-    public CacheManager getCache(String cacheName);
+    CacheManager getCache(String cacheName);
 
 }
