@@ -108,7 +108,6 @@ public interface BaseDao {
      * description:  列表查询,并转型为object
      *
      * @param param
-     * @return
      * @author cuiyongxu
      * @update Dec 11, 2015
      */
@@ -118,7 +117,6 @@ public interface BaseDao {
      * description:  获取唯一对象实例,主要转为vo等
      *
      * @param param
-     * @return
      * @author cuiyongxu
      * @update Dec 11, 2015
      */

@@ -45,8 +45,7 @@ public class SqlSessionFactoryFactoryBean implements FactoryBean, InitializingBe
      * @throws IOException
      */
     private SqlSessionFactory createSqlSessionFactory() throws IOException {
-        Reader reader = new InputStreamReader(getConfigLocation().getInputStream());
-        try {
+        try (Reader reader = new InputStreamReader(getConfigLocation().getInputStream())) {
             SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
             Configuration conf = sqlSessionFactory.getConfiguration();
             if (dataSource != null) {
@@ -63,19 +62,13 @@ public class SqlSessionFactoryFactoryBean implements FactoryBean, InitializingBe
                     log.info("Loading iBatis3 mapper xml from file[" + r.getFile().getAbsolutePath() + "]");
 
                     //Reader mapperReader = new InputStreamReader(r.getInputStream());
-                    try {
-                        XMLMapperBuilder mapperBuilder = new XMLMapperBuilder(r.getInputStream(), conf, r.getFile()
-                                .getAbsolutePath(), sqlFragments);
-                        mapperBuilder.parse();
-                    } finally {
-                        //mapperReader.close();
-                    }
+                    XMLMapperBuilder mapperBuilder = new XMLMapperBuilder(r.getInputStream(), conf, r.getFile()
+                            .getAbsolutePath(), sqlFragments);
+                    mapperBuilder.parse();
                 }
             }
             sqlSessionFactory = new SqlSessionFactoryBuilder().build(conf);
             return sqlSessionFactory;
-        } finally {
-            reader.close();
         }
     }
 

@@ -26,7 +26,7 @@ public class Page implements Serializable {
     private String isNeedCount = "true"; // 是否需要重新从数据库中获取记录总数
     private static int maxPageSize = 100; // 默认每页的最大数
     public static final String PAGER_IMAGE_LOCATION_PATH = "pagerImageLocationPath"; // 图片存放路径常量字符串
-    @SuppressWarnings("rawtypes")
+
     private List pageObjects;
 
     /**

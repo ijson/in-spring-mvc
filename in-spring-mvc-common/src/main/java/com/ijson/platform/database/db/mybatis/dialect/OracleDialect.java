@@ -32,7 +32,7 @@ public class OracleDialect implements Dialect {
             return "";
         sql = trim(sql);
         sql = decorateSql(sql, orderby);
-        StringBuffer sb = new StringBuffer(sql.length() + 20);
+        StringBuilder sb = new StringBuilder(sql.length() + 20);
         sb.append("SELECT * FROM (SELECT A.*, ROWNUM RN FROM (");
         sb.append(sql);
         sb.append(" )A WHERE ROWNUM <=");
@@ -54,7 +54,7 @@ public class OracleDialect implements Dialect {
         if (Validator.isNull(sql)) {
             return sql;
         }
-        StringBuffer strBuf = new StringBuffer();
+        StringBuilder strBuf = new StringBuilder();
 
         if (Validator.isNull(orderby)) {
             return sql;
@@ -67,7 +67,6 @@ public class OracleDialect implements Dialect {
      * 去除空格，如果该字符串以";"结尾则去掉。
      *
      * @param sql 源串
-     * @return
      */
     private String trim(String sql) {
         if (Validator.isNull(sql)) {

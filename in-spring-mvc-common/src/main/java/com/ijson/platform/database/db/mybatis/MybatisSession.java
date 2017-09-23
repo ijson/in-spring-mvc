@@ -34,8 +34,7 @@ public class MybatisSession<O> {
         QueryPair qp = buildQueryPair(nameSpace, "insert", query, args);
         try {
             session = getSqlSession();
-            int count = session.insert(qp.id, qp.o);
-            return count;
+            return session.insert(qp.id, qp.o);
         } catch (Exception e) {
             throw new DBServiceException("执行insert方法出错");
         } finally {
@@ -77,8 +76,7 @@ public class MybatisSession<O> {
         QueryPair qp = buildQueryPair(nameSpace, "update", query, args);
         try {
             session = getSqlSession();
-            int count = session.update(qp.id, qp.o);
-            return count;
+            return session.update(qp.id, qp.o);
         } catch (Exception e) {
             throw new DBServiceException("执行update方法出错");
         } finally {
@@ -97,8 +95,7 @@ public class MybatisSession<O> {
         QueryPair qp = buildQueryPair(nameSpace, "delete", query, args);
         try {
             session = getSqlSession();
-            int count = session.delete(qp.id, qp.o);
-            return count;
+            return session.delete(qp.id, qp.o);
         } catch (Exception e) {
             throw new DBServiceException("执行delete方法出错");
         } finally {
@@ -113,13 +110,11 @@ public class MybatisSession<O> {
      * @param args  sql执行参数
      * @return
      */
-    @SuppressWarnings("unchecked")
     public O selectSingle(String nameSpace, String query, Object... args) {
         QueryPair qp = buildQueryPair(nameSpace, "select", query, args);
         try {
             session = getSqlSession();
-            O o = (O) session.selectOne(qp.id, qp.o);
-            return o;
+            return (O) session.selectOne(qp.id, qp.o);
         } catch (Exception e) {
             throw new DBServiceException("执行selectSingle方法出错");
         } finally {
@@ -132,14 +127,12 @@ public class MybatisSession<O> {
      *
      * @param query sql执行key
      * @param args  sql执行参数
-     * @return
      */
     public long count(String nameSpace, String query, Object... args) {
         QueryPair qp = buildQueryPair(nameSpace, "count", query, args);
         try {
             session = getSqlSession();
-            long count = (Long) session.selectOne(qp.id, qp.o);
-            return count;
+            return (long) (Long) session.selectOne(qp.id, qp.o);
         } catch (Exception e) {
             throw new DBServiceException("执行count方法出错");
         } finally {
@@ -152,15 +145,12 @@ public class MybatisSession<O> {
      *
      * @param query sql执行key
      * @param args  sql执行参数
-     * @return
      */
-    @SuppressWarnings("unchecked")
     public List<O> select(String nameSpace, String query, Object... args) {
         QueryPair qp = buildQueryPair(nameSpace, "select", query, args);
         try {
             session = getSqlSession();
-            List<O> list = (List<O>) session.selectList(qp.id, qp.o);
-            return list;
+            return (List<O>) session.selectList(qp.id, qp.o);
         } catch (Exception e) {
             throw new DBServiceException("执行select方法出错");
         } finally {
@@ -175,15 +165,12 @@ public class MybatisSession<O> {
      * @param start 开始位置
      * @param end   结束位置
      * @param args  sql执行参数
-     * @return
      */
-    @SuppressWarnings("unchecked")
     public List<O> select(String nameSpace, String query, int start, int end, Object... args) {
         QueryPair qp = buildQueryPair(nameSpace, "select", query, args);
         try {
             session = getSqlSession();
-            List<O> list = (List<O>) session.selectList(qp.id, qp.o, new RowBounds(start, end));
-            return list;
+            return (List<O>) session.selectList(qp.id, qp.o, new RowBounds(start, end));
         } catch (Exception e) {
             throw new DBServiceException("执行select方法出错");
         } finally {
@@ -196,9 +183,7 @@ public class MybatisSession<O> {
      *
      * @param query sql执行key
      * @param param sql执行参数
-     * @return
      */
-    @SuppressWarnings("unchecked")
     public Page selectPage(String nameSpace, String query, MethodParam param) {
         Page pagingData = new Page();
         pagingData.setPageNeeded(param.getPageIndex());
@@ -231,7 +216,6 @@ public class MybatisSession<O> {
      * @param type  执行sql前缀
      * @param query 执行sql后缀
      * @param args  执行sql参数
-     * @return
      */
     protected QueryPair buildQueryPair(String nameSpace, String type, String query, Object... args) {
         String id = nameSpace;
@@ -273,13 +257,10 @@ public class MybatisSession<O> {
 
     /**
      * description: 关闭session
-     *
-     * @param session
      */
     private void closeSqlSession(SqlSession session) {
         if (null != session) {
             session.close();
         }
-        session = null;
     }
 }

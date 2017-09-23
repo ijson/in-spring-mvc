@@ -35,7 +35,7 @@ public class SqlserverDialect implements Dialect {
 		} else {
 			orderByStr = "";
 		}
-		StringBuffer pageSql = new StringBuffer(sql.length() + 15);
+		StringBuilder pageSql = new StringBuilder(sql.length() + 15);
 		pageSql.append(sql).insert(getAfterSelectInsertPoint(sql), " top " + (offset + limit));
 
 		// 其实这里还是有一点问题的，就是排序问题，指定死了，有解决的提供一下，等复习到Hibernate看看Hibernat内部是如何实现的。  

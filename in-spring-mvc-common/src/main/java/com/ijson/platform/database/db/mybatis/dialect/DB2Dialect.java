@@ -31,8 +31,8 @@ public class DB2Dialect implements Dialect {
             return "";
         sql = trim(sql);
         String rowNumSql = getRowNumSql(orderby);
-        StringBuffer sb = new StringBuffer(sql.length() + 20);
-        sb.append("SELECT * FROM (SELECT A.*, " + rowNumSql + "as ROWNUM from (");
+        StringBuilder sb = new StringBuilder(sql.length() + 20);
+        sb.append("SELECT * FROM (SELECT A.*, ").append(rowNumSql).append("as ROWNUM from (");
         sb.append(sql);
         sb.append(" )A ) WHERE ROWNUM <");
         sb.append(limit + 1);
@@ -51,15 +51,13 @@ public class DB2Dialect implements Dialect {
     private String getRowNumSql(String orderby) {
         if (Validator.isNull(orderby))
             return "";
-        StringBuffer strBuf = new StringBuffer("ROW_NUMBER() OVER(ORDER BY  " + orderby + " )");
-        return strBuf.toString();
+        return "ROW_NUMBER() OVER(ORDER BY  " + orderby + " )";
     }
 
     /**
      * 去除空格，如果该字符串以";"结尾则去掉。
      *
      * @param sql 源串
-     * @return
      */
     private String trim(String sql) {
         if (Validator.isNull(sql)) {

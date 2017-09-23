@@ -51,7 +51,7 @@ public class DaoIbatisImpl implements BaseDao {
     /**
      * description: 批量删除对象
      *
-     * @param params 方法参数模型
+     * @param param 方法参数模型
      * @return true为删除成功；false为删除失败
      */
     public boolean deleteBath(MethodParam param) {
@@ -59,9 +59,9 @@ public class DaoIbatisImpl implements BaseDao {
             //init(param.getSpanceName());
             int count = 0;
             List list = (List) param.getVaule();
-            for (int i = 0; i < list.size(); i++) {
+            for (Object aList : list) {
                 //count += dao.get(param.getSpanceName()).delete(param.getKey(), list.get(i));
-                count += getSession().delete(param.getSpanceName(), param.getKey(), list.get(i));
+                count += getSession().delete(param.getSpanceName(), param.getKey(), aList);
             }
             if (count > 0)
                 return true;
@@ -72,7 +72,7 @@ public class DaoIbatisImpl implements BaseDao {
     /**
      * description: 批量修改对象值
      *
-     * @param params 方法参数模型
+     * @param param 方法参数模型
      * @return true为修改成功；false为修改失败
      */
     public boolean editBath(MethodParam param) {
@@ -80,9 +80,9 @@ public class DaoIbatisImpl implements BaseDao {
             //init(param.getSpanceName());
             int count = 0;
             List list = (List) param.getVaule();
-            for (int i = 0; i < list.size(); i++) {
+            for (Object aList : list) {
                 //count += dao.get(param.getSpanceName()).update(param.getKey(), list.get(i));
-                count += getSession().update(param.getSpanceName(), param.getKey(), list.get(i));
+                count += getSession().update(param.getSpanceName(), param.getKey(), aList);
             }
             if (count > 0)
                 return true;
@@ -93,7 +93,7 @@ public class DaoIbatisImpl implements BaseDao {
     /**
      * description: 批量新增
      *
-     * @param params 方法参数模型
+     * @param param 方法参数模型
      * @return true为新增成功；false为新增失败
      */
     public boolean insertBath(MethodParam param) {
@@ -235,7 +235,6 @@ public class DaoIbatisImpl implements BaseDao {
      * description:  列表查询,并转型为object
      *
      * @param param
-     * @return
      * @author cuiyongxu
      * @update Dec 11, 2015
      */
@@ -249,7 +248,6 @@ public class DaoIbatisImpl implements BaseDao {
      * description:  获取唯一对象实例,主要转为vo等
      *
      * @param param
-     * @return
      * @author cuiyongxu
      * @update Dec 11, 2015
      */

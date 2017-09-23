@@ -40,7 +40,6 @@ public class MethodCacheInterceptor implements MethodInterceptor {
     /* (non-Javadoc)
      * @see org.aopalliance.intercept.MethodInterceptor#invoke(org.aopalliance.intercept.MethodInvocation)
      */
-    @SuppressWarnings({"rawtypes", "unchecked"})
     public Object invoke(MethodInvocation invocation) throws Throwable {
         String targetName = invocation.getThis().getClass().getName();
         String methodName = invocation.getMethod().getName();
@@ -106,8 +105,8 @@ public class MethodCacheInterceptor implements MethodInterceptor {
         } else {
             if (!Validator.isEmpty(list)) {
                 int count = list.size();
-                for (int i = 0; i < count; i++) {
-                    getCache().removeCacheObject(list.get(i).toString());
+                for (String aList : list) {
+                    getCache().removeCacheObject(aList);
                 }
                 getCache().removeCacheObject(targetName);
             }
@@ -122,11 +121,11 @@ public class MethodCacheInterceptor implements MethodInterceptor {
      * @return
      */
     private String getCacheKey(String methodName, MethodParam arguments) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if (Validator.isNull(arguments.getSpanceName())) {
             sb.append(arguments.getSqlStr());
         } else {
-            sb.append(arguments.getSpanceName() + "." + arguments.getKey());
+            sb.append(arguments.getSpanceName()).append(".").append(arguments.getKey());
         }
         Map<String, Object> param = arguments.getParams();
         if (param != null && !param.isEmpty()) {
@@ -135,7 +134,7 @@ public class MethodCacheInterceptor implements MethodInterceptor {
             }
         }
         if ("pageSelect".equalsIgnoreCase(methodName)) {
-            sb.append("." + arguments.getPageIndex() + ".").append(arguments.getPageSize());
+            sb.append(".").append(arguments.getPageIndex()).append(".").append(arguments.getPageSize());
         }
         return sb.toString();
     }

@@ -325,8 +325,7 @@ public class DaoHibernateImpl extends HibernateDaoSupport implements BaseDao {
         try {
             Query query = session.createQuery(param.getSqlStr());
             getParamClass(query, param.getParams());
-            int count = query.executeUpdate();
-            return count;
+            return query.executeUpdate();
         } finally {
             session.flush();
             session.close();
@@ -371,7 +370,7 @@ public class DaoHibernateImpl extends HibernateDaoSupport implements BaseDao {
      */
     @Override
     public List selectByObject(MethodParam param) {
-        List list = null;
+        List list;
         List objList = null;
         Session session = getHibernateTemplate().getSessionFactory().openSession();
         try {
@@ -383,8 +382,8 @@ public class DaoHibernateImpl extends HibernateDaoSupport implements BaseDao {
             Object obj = clazz.newInstance();
             if (!Validator.isEmpty(list)) {
                 objList = new ArrayList();
-                for (int i = 0; i < list.size(); i++) {
-                    Object objClone = ReflectDB.getInstance().cloneObj(list.get(i), obj);
+                for (Object aList : list) {
+                    Object objClone = ReflectDB.getInstance().cloneObj(aList, obj);
                     objList.add(objClone);
                 }
             }

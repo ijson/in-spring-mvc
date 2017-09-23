@@ -36,8 +36,7 @@ public class DaoSession<O> {
         QueryPair qp = buildQueryPair("insert", query, args);
         try {
             session = getSqlSession();
-            int count = session.insert(qp.id, qp.o);
-            return count;
+            return session.insert(qp.id, qp.o);
         } catch (Exception e) {
             throw new DBServiceException("执行insert方法出错");
         } finally {
@@ -49,7 +48,6 @@ public class DaoSession<O> {
      * description: 批量新增
      *
      * @param objList 对象集合
-     * @return
      */
     public int insertBath(List<O> objList) {
         int result = 0;
@@ -73,14 +71,12 @@ public class DaoSession<O> {
      *
      * @param query sql执行key
      * @param args  sql执行参数
-     * @return
      */
     public int update(String query, Object... args) {
         QueryPair qp = buildQueryPair("update", query, args);
         try {
             session = getSqlSession();
-            int count = session.update(qp.id, qp.o);
-            return count;
+            return session.update(qp.id, qp.o);
         } catch (Exception e) {
             throw new DBServiceException("执行update方法出错");
         } finally {
@@ -93,14 +89,12 @@ public class DaoSession<O> {
      *
      * @param query sql执行key
      * @param args  sql执行参数
-     * @return
      */
     public int delete(String query, Object... args) {
         QueryPair qp = buildQueryPair("delete", query, args);
         try {
             session = getSqlSession();
-            int count = session.delete(qp.id, qp.o);
-            return count;
+            return session.delete(qp.id, qp.o);
         } catch (Exception e) {
             throw new DBServiceException("执行delete方法出错");
         } finally {
@@ -113,15 +107,13 @@ public class DaoSession<O> {
      *
      * @param query sql执行key
      * @param args  sql执行参数
-     * @return
      */
     @SuppressWarnings("unchecked")
     public O selectSingle(String query, Object... args) {
         QueryPair qp = buildQueryPair("select", query, args);
         try {
             session = getSqlSession();
-            O o = (O) session.selectOne(qp.id, qp.o);
-            return o;
+            return (O) session.selectOne(qp.id, qp.o);
         } catch (Exception e) {
             throw new DBServiceException("执行selectSingle方法出错");
         } finally {
@@ -140,8 +132,7 @@ public class DaoSession<O> {
         QueryPair qp = buildQueryPair("count", query, args);
         try {
             session = getSqlSession();
-            long count = (Long) session.selectOne(qp.id, qp.o);
-            return count;
+            return (long) (Long) session.selectOne(qp.id, qp.o);
         } catch (Exception e) {
             throw new DBServiceException("执行count方法出错");
         } finally {
@@ -154,15 +145,13 @@ public class DaoSession<O> {
      *
      * @param query sql执行key
      * @param args  sql执行参数
-     * @return
      */
     @SuppressWarnings("unchecked")
     public List<O> select(String query, Object... args) {
         QueryPair qp = buildQueryPair("select", query, args);
         try {
             session = getSqlSession();
-            List<O> list = (List<O>) session.selectList(qp.id, qp.o);
-            return list;
+            return (List<O>) session.selectList(qp.id, qp.o);
         } catch (Exception e) {
             throw new DBServiceException("执行select方法出错");
         } finally {
@@ -184,8 +173,7 @@ public class DaoSession<O> {
         QueryPair qp = buildQueryPair("select", query, args);
         try {
             session = getSqlSession();
-            List<O> list = (List<O>) session.selectList(qp.id, qp.o, new RowBounds(start, end));
-            return list;
+            return (List<O>) session.selectList(qp.id, qp.o, new RowBounds(start, end));
         } catch (Exception e) {
             throw new DBServiceException("执行select方法出错");
         } finally {
@@ -198,14 +186,12 @@ public class DaoSession<O> {
      *
      * @param query sql执行key
      * @param param sql执行参数
-     * @return
      */
-    @SuppressWarnings("unchecked")
     public Page selectPage(String query, MethodParam param) {
         Page pagingData = new Page();
         pagingData.setPageNeeded(param.getPageIndex());
         pagingData.setPageSize(param.getPageSize());
-        List<O> list = null;
+        List<O> list;
         int totalRows = pagingData.getCount();
         if ("true".equals(pagingData.getIsNeedCount())) {
             totalRows = (int) this.count(query, param.getParams());
@@ -233,7 +219,6 @@ public class DaoSession<O> {
      * @param type  执行sql前缀
      * @param query 执行sql后缀
      * @param args  执行sql参数
-     * @return
      */
     protected QueryPair buildQueryPair(String type, String query, Object... args) {
         String id = nameSpace;
@@ -266,8 +251,6 @@ public class DaoSession<O> {
 
     /**
      * description: 打开session
-     *
-     * @return
      */
     private SqlSession getSqlSession() {
         return this.sessionFactory.openSession();
@@ -275,13 +258,10 @@ public class DaoSession<O> {
 
     /**
      * description: 关闭session
-     *
-     * @param session
      */
     private void closeSqlSession(SqlSession session) {
         if (null != session) {
             session.close();
         }
-        session = null;
     }
 }

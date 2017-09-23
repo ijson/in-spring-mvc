@@ -2,7 +2,6 @@ package com.ijson.platform.database.db.mybatis;
 
 /**
  * description: 查询参数模型
- *
  */
 public class QueryPair {
     String id;
