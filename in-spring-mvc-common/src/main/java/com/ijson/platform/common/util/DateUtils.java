@@ -20,8 +20,7 @@ import java.util.TimeZone;
 public class DateUtils {
 
     private static String defaultDatePattern = "yyyy-MM-dd";
-    private static String timePattern = "yyyy-MM-dd HH:mm:ss";
-    public static final long oneDayMillSeconds = 24 * 60 * 60 * 1000;
+    private static final long oneDayMillSeconds = 24 * 60 * 60 * 1000;
 
     private DateUtils() {
     }
@@ -62,12 +61,12 @@ public class DateUtils {
     /**
      * description:  获取当前时间,yyyy-MM-dd HH:mm:ss
      *
-     * @return
      * @author cuiyongxu
      * @update Nov 12, 2015
      */
     public String getTodayTime() {
         Date today = new Date();
+        String timePattern = "yyyy-MM-dd HH:mm:ss";
         return format(today, timePattern);
     }
 
@@ -213,8 +212,7 @@ public class DateUtils {
         long timethis = calendar.getTimeInMillis();
         calendar.setTime(endTime);
         long timeend = calendar.getTimeInMillis();
-        long theday = (timeend - timethis) / (1000 * 60 * 60 * 24);
-        return theday;
+        return (timeend - timethis) / (1000 * 60 * 60 * 24);
     }
 
     /**
@@ -523,8 +521,7 @@ public class DateUtils {
      */
     public String getTimeZoneOfSystem() {
         Properties sysProp = new Properties(System.getProperties());
-        String sysTimeZone = sysProp.getProperty("user.timezone");
-        return sysTimeZone;
+        return sysProp.getProperty("user.timezone");
     }
 
     /**
@@ -535,8 +532,7 @@ public class DateUtils {
      * @update Jul 3, 2015
      */
     public String getTimeZoneOfJVM() {
-        String jvmTimeZone = TimeZone.getDefault().getID();
-        return jvmTimeZone;
+        return TimeZone.getDefault().getID();
     }
 
     /**
@@ -550,13 +546,12 @@ public class DateUtils {
     public boolean checkTimeZone() {
         String sysTimeZone = getTimeZoneOfSystem();
         String jvmTimeZone = getTimeZoneOfJVM();
-        return sysTimeZone == null ? false : sysTimeZone.equals(jvmTimeZone);
+        return sysTimeZone != null && sysTimeZone.equals(jvmTimeZone);
     }
 
     /**
      * description:初始化当前日期
      *
-     * @return
      * @author cuiyongxu
      * @update Jul 3, 2015
      */
@@ -568,8 +563,6 @@ public class DateUtils {
     /**
      * description:格式化日期yyyy-MM-dd
      *
-     * @param date
-     * @return
      * @author cuiyongxu
      * @update Jul 3, 2015
      */

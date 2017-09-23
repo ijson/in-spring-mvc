@@ -1,12 +1,12 @@
 package com.ijson.platform.cache.manager.ehcache.impl;
 
+import com.google.common.collect.Lists;
 import com.ijson.platform.cache.CacheManager;
 import com.ijson.platform.cache.manager.ehcache.EhcacheConfigurer;
 import com.ijson.platform.common.util.Validator;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -63,11 +63,11 @@ public class EhcacheManagerImpl implements CacheManager {
             if (element == null) {
                 return null;
             } else {
-                Object cacheOject = element.getObjectValue();
-                return cacheOject;
+                return element.getObjectValue();
             }
-        } else
+        } else {
             return null;
+        }
     }
 
     public Object getCacheCloneByKey(String key) {
@@ -85,9 +85,8 @@ public class EhcacheManagerImpl implements CacheManager {
     public List<Object> getObjects(List<String> keys) {
         if (Validator.isEmpty(keys))
             return null;
-        List<Object> list = new ArrayList<Object>();
-        for (int i = 0; i < keys.size(); i++) {
-            String key = keys.get(i);
+        List<Object> list = Lists.newArrayList();
+        for (String key : keys) {
             Object object = getCacheCloneByKey(key);
             if (!Validator.isEmpty(object)) {
                 list.add(object);
@@ -99,9 +98,9 @@ public class EhcacheManagerImpl implements CacheManager {
     public List<Object> getObjects(List<String> keys, String prefix) {
         if (Validator.isEmpty(keys))
             return null;
-        List<Object> list = new ArrayList<Object>();
-        for (int i = 0; i < keys.size(); i++) {
-            String key = prefix + keys.get(i);
+        List<Object> list =  Lists.newArrayList();
+        for (String key1 : keys) {
+            String key = prefix + key1;
             Object object = getCacheCloneByKey(key);
             if (!Validator.isEmpty(object)) {
                 list.add(object);
@@ -113,20 +112,20 @@ public class EhcacheManagerImpl implements CacheManager {
     public List<String> getObjects(List<String> keys, String prefix, List<Object> objs) {
         if (Validator.isEmpty(keys))
             return null;
-        List<String> list = new ArrayList<String>();
-        for (int i = 0; i < keys.size(); i++) {
-            String key = prefix + keys.get(i);
+        List<String> list =  Lists.newArrayList();
+        for (String key1 : keys) {
+            String key = prefix + key1;
             Object object = getCacheCloneByKey(key);
             if (!Validator.isEmpty(object)) {
                 objs.add(object);
             } else {
-                list.add(keys.get(i));
+                list.add(key1);
             }
         }
         return list;
     }
 
-    public List<String> getAllKeys() {
+    public List getAllKeys() {
         return getCache().getKeys();
     }
 

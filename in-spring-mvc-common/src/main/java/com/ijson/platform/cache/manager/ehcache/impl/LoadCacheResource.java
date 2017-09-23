@@ -62,8 +62,9 @@ public class LoadCacheResource extends AbstractResource {
         URL url = this.classLoader.getResource(this.path);
         if (null == url) {
             url = this.classLoader.getClass().getResource("/ehcache.xml");//获取默认的配置信息
-            if (url == null)
+            if (url == null) {
                 url = LoadCacheResource.class.getClassLoader().getResource("/ehcache/ehcache.xml");
+            }
         }
         if (url == null) {
             throw new FileNotFoundException(getDescription() + " cannot be resolved to URL because it does not exist");
@@ -76,11 +77,8 @@ public class LoadCacheResource extends AbstractResource {
     }
 
     public String getDescription() {
-        StringBuilder builder = new StringBuilder("class path resource [");
-
-        builder.append(this.path);
-        builder.append(']');
-        return builder.toString();
+        return "class path resource [" + this.path +
+                ']';
     }
 
     public String getPath() {

@@ -89,7 +89,7 @@ public interface CacheManager extends IBaseCache {
      * @author cuiyongxu
      * @update Jul 3, 2015
      */
-    List<String> getAllKeys();
+    List getAllKeys();
 
     /**
      * description: 删除缓存对象

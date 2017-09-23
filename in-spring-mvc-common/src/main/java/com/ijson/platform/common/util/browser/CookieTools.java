@@ -1,8 +1,8 @@
 package com.ijson.platform.common.util.browser;
 
-import com.ijson.platform.common.util.LoggerHelper;
 import com.ijson.platform.common.util.SystemUtil;
 import com.ijson.platform.common.util.Validator;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author cuiyongxu 创建时间：2015-12-22
  */
+@Slf4j
 public class CookieTools {
 
     private static CookieTools instance;
@@ -94,7 +95,7 @@ public class CookieTools {
                 }
             }
         } catch (Exception e) {
-            LoggerHelper.ie(e);
+            log.error("CookieTools getCookie : ", e);
         }
         return cookie;
     }

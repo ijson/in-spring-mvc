@@ -1,8 +1,8 @@
 package com.ijson.platform.cache.manager.ehcache;
 
 import com.ijson.platform.cache.manager.ehcache.impl.LoadCacheResource;
-import com.ijson.platform.common.util.LoggerHelper;
 import com.ijson.platform.common.util.Validator;
+import lombok.extern.slf4j.Slf4j;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 
@@ -13,12 +13,11 @@ import java.net.URL;
  *
  * @author heppy1.com 创建时间：Jan 24, 2015
  */
+@Slf4j
 public class EhcacheConfigurer {
 
     private CacheResource resource;
     private static CacheManager manager = null;
-
-    //private Map<String, Cache> param = new HashMap<String, Cache>();
 
     public void setLocations(CacheResource resource) {
         this.resource = resource;
@@ -34,7 +33,7 @@ public class EhcacheConfigurer {
                 manager = new CacheManager(url);
             }
         } catch (Exception e) {
-            LoggerHelper.ie(e);
+            log.error("init:",e);
         }
     }
 

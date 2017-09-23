@@ -1,5 +1,6 @@
 package com.ijson.platform.common.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.*;
@@ -7,7 +8,6 @@ import java.net.URL;
 import java.security.MessageDigest;
 import java.util.Collection;
 import java.util.List;
-import java.util.Properties;
 import java.util.UUID;
 
 /**
@@ -15,6 +15,7 @@ import java.util.UUID;
  *
  * @author cuiyongxu 创建时间：Oct 8, 2015
  */
+@Slf4j
 public class Validator {
 
     public static final String BLANK = "";
@@ -161,42 +162,7 @@ public class Validator {
         }
     }
 
-    /**
-     * description: 获取Poperties文件
-     *
-     * @param filePath 资源文件路径
-     * @return
-     * @author cuiyongxu
-     * @update Jul 3, 2015
-     */
-    public static Properties getProperties(String filePath, String fileName) {
-        Properties prop = null;
-        FileInputStream fileInput = null;
-        try {
-            File file = new File(filePath + fileName);
-            if (file.exists()) {// 判断文件夹是否存在
-                prop = new Properties();
-                fileInput = new FileInputStream(filePath + fileName);
-                prop.load(fileInput);
-            }
-        } catch (IOException e) {
-            try {
-                InputStream in = Validator.class.getClass().getResourceAsStream(fileName);
-                prop.load(in);
-                in.close();
-            } catch (IOException e1) {
-                LoggerHelper.ie(e1);
-            }
-        } finally {
-            try {
-                if (null != fileInput)
-                    fileInput.close();
-            } catch (Exception e) {
-                LoggerHelper.ie(e);
-            }
-        }
-        return prop;
-    }
+
 
     /**
      * description:  返回classes的绝对路径
@@ -267,7 +233,7 @@ public class Validator {
             try {
                 ret = BeanUtils.cloneBean(o);
             } catch (Exception e1) {
-                LoggerHelper.ie(e1);
+                log.error("Validator clone : ", e1);
                 ret = null;
             }
         }
@@ -303,7 +269,7 @@ public class Validator {
             }
             return new String(str);
         } catch (Exception e) {
-            LoggerHelper.ie(e);
+            log.error("Validator MD5:",e);
             return null;
         }
     }
