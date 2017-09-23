@@ -44,7 +44,6 @@ public class SystemUtil {
     /**
      * description:  获取所有配置信息
      *
-     * @return
      * @author cuiyongxu
      * @update Jul 3, 2015
      */
@@ -57,7 +56,6 @@ public class SystemUtil {
      * description:  根据指定的KEY获取相应配置信息
      *
      * @param key 指定的KEY
-     * @return
      * @author cuiyongxu
      * @update Jul 3, 2015
      */

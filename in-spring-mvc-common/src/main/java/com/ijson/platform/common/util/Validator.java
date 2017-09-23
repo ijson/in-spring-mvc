@@ -18,9 +18,9 @@ import java.util.UUID;
 @Slf4j
 public class Validator {
 
-    public static final String BLANK = "";
+    private static final String BLANK = "";
 
-    public static final String NULL = "null";
+    private static final String NULL = "null";
 
     /**
      * description:获取UUID主键生成器的方法
@@ -43,11 +43,7 @@ public class Validator {
      * @update Jul 3, 2015
      */
     public static boolean isNull(Object[] object) {
-        if (object == null || object.length == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return object == null || object.length == 0;
     }
 
     /**
@@ -78,10 +74,7 @@ public class Validator {
             return true;
         }
         str = str.trim();
-        if ((str.equals(NULL)) || (str.equals(BLANK))) {
-            return true;
-        }
-        return false;
+        return (str.equals(NULL)) || (str.equals(BLANK));
     }
 
     /**
@@ -217,7 +210,7 @@ public class Validator {
      */
     //@Deprecated
     public static Object clone(Object o) {
-        Object ret = null;
+        Object ret;
         try {
             // save the object to a byte array
             ByteArrayOutputStream bout = new ByteArrayOutputStream();
@@ -262,8 +255,7 @@ public class Validator {
             int j = md.length;
             char str[] = new char[j * 2];
             int k = 0;
-            for (int i = 0; i < j; i++) {
-                byte byte0 = md[i];
+            for (byte byte0 : md) {
                 str[k++] = hexDigits[byte0 >>> 4 & 0xf];
                 str[k++] = hexDigits[byte0 & 0xf];
             }
