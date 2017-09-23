@@ -1,4 +1,4 @@
-package com.ijson.platform.platform.interceptor.model;
+package com.ijson.platform.common.annotation;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

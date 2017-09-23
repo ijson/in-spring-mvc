@@ -1,7 +1,7 @@
-package com.ijson.platform.platform.interceptor;
+package com.ijson.platform.common.interceptor;
 
 import com.google.common.base.Strings;
-import com.ijson.platform.platform.interceptor.model.Token;
+import com.ijson.platform.common.annotation.Token;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 

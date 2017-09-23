@@ -1,4 +1,4 @@
-package com.ijson.platform.platform.interceptor;
+package com.ijson.platform.common.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerExceptionResolver;
