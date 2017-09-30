@@ -15,16 +15,18 @@
 
     <groupId>com.ijson</groupId>
     <artifactId>in-spring-mvc</artifactId>
-    <packaging>pom</packaging>
+    <packaging>war</packaging>
     <version>1.0.0-SNAPSHOT</version>
-    <modules>
-        <module>in-spring-mvc-biz</module>
-        <module>in-spring-mvc-common</module>
-    </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.ijson</groupId>
+            <artifactId>in-spring-mvc-common</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
     <description>简单的springmvc框架,用于快速开发</description>
-
 
     <licenses>
         <license>
