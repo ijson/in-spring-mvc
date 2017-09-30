@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
 
-	<diskStore path="java.io.tmpdir" />
-	
-	<defaultCache maxElementsInMemory="10000"
-            eternal="false"
-            timeToIdleSeconds="300"
-            timeToLiveSeconds="300"
-            diskExpiryThreadIntervalSeconds="120"
-            memoryStoreEvictionPolicy="LFU">
-     </defaultCache>
+    <diskStore path="java.io.tmpdir"/>
 
+    <defaultCache maxElementsInMemory="10000"
+                  eternal="false"
+                  timeToIdleSeconds="300"
+                  timeToLiveSeconds="300"
+                  diskExpiryThreadIntervalSeconds="120"
+                  memoryStoreEvictionPolicy="LFU">
+    </defaultCache>
+
+    <!-- 不做数据同步时配置,框架所需,禁止删除-->
+    <cache name="ijsonCache" maxElementsInMemory="100000" eternal="true"
+           overflowToDisk="true" timeToIdleSeconds="120" timeToLiveSeconds="120"
+           diskPersistent="false" diskExpiryThreadIntervalSeconds="120" diskSpoolBufferSizeMB="1024"
+           memoryStoreEvictionPolicy="LFU">
+    </cache>
 </ehcache>
