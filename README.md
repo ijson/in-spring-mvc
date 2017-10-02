@@ -14,5 +14,6 @@
    ```
        <import resource="classpath:spring/in     -spring-biz-${projectName}.xml"/>
    ```
+4. 修改in-spring-mvc 下resources-> autoconf->in-db下的数据库文件
 
 4. 启动tomcat即可访问controller
