@@ -13,7 +13,7 @@
 2. 然后将代码生成器生成的项目到idea或者eclipse中,然后在in-spring-mvc中添加生成项目的dependency
 3. 在in-sprign-mvc项目下webapp->WEB-INF->applicationContext.xml文件中,导入生成项目的spring文件,一般都在生成项目resources下的spring目录下,命名规则为:in-spring-biz-${projectName}.xml,在applicationContext.xml中导入
    ```
-       <import resource="classpath:spring/in     -spring-biz-${projectName}.xml"/>
+       <import resource="classpath:spring/in-spring-biz-${projectName}.xml"/>
    ```
 4. 修改in-spring-mvc 下resources-> autoconf->in-db下的数据库文件
 
