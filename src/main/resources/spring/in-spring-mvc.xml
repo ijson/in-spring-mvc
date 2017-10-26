@@ -8,8 +8,8 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-    <view-controller path="/" view-name="main"/>
-
+    <!--<view-controller path="/" view-name="main"/>
+-->
     <context:component-scan base-package="com.ijson">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
     </context:component-scan>
@@ -57,13 +57,27 @@
             <mvc:mapping path="/**"/><!-- 配置Token拦截器，防止用户重复提交数据 -->
             <beans:bean class="com.ijson.platform.common.interceptor.TokenInterceptor"/>
         </mvc:interceptor>
-        <!-- 国际化拦截器 -->
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <beans:bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
-        </mvc:interceptor>
     </mvc:interceptors>
 
+
+    <!-- 定义国际化文件和编码 -->
+    <beans:bean id="propertiesMessageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <beans:property name="basenames" value="i18n/lang"/>
+        <beans:property name="defaultEncoding" value="utf8"/>
+    </beans:bean>
+    <!-- 使用session判断用户语言 -->
+    <beans:bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <beans:property name="defaultLocale" value="cn"/>
+    </beans:bean>
+    <mvc:interceptors>
+        <beans:bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <beans:property name="paramName" value="locale"/>
+        </beans:bean>
+    </mvc:interceptors>
+    <!-- 数据库国际化资源 自定义的MessageResource -->
+    <beans:bean id="messageSource" class="com.ijson.platform.i18n.MessageResource">
+        <beans:property name="parentMessageSource" ref="propertiesMessageSource"/>
+    </beans:bean>
 
 </beans:beans>
 

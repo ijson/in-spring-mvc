@@ -24,6 +24,10 @@
             <artifactId>in-spring-mvc-common</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
     </dependencies>
 
     <description>简单的springmvc框架,用于快速开发</description>
