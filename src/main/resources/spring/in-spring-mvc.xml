@@ -9,10 +9,12 @@
     <mvc:default-servlet-handler/>
 
     <bean id="beetlConfig" class="org.beetl.ext.spring.BeetlGroupUtilConfiguration" init-method="init">
-        <property name="root" value="/"/>
+        <property name="configFileResource" value="classpath:beetl.properties"/>
+
     </bean>
     <bean id="viewResolver" class="org.beetl.ext.spring.BeetlSpringViewResolver">
         <property name="contentType" value="text/html;charset=UTF-8"/>
+        <property name="config" ref="beetlConfig"/>
     </bean>
 
 
