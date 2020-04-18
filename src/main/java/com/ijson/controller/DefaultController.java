@@ -10,7 +10,7 @@ public class DefaultController {
 
     @RequestMapping(value = "/params", method = RequestMethod.GET)
     public ModelAndView mobile() {
-        ModelAndView view = new ModelAndView("/default/params.btl");
+        ModelAndView view = new ModelAndView("/default/params");
         view.addObject("total", 2222);
         view.addObject("title", "你好,中国!");
         return view;
