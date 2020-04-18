@@ -8,9 +8,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class DefaultController {
 
-    @RequestMapping(value = "/mobile", method = RequestMethod.GET)
+    @RequestMapping(value = "/params", method = RequestMethod.GET)
     public ModelAndView mobile() {
-        ModelAndView view = new ModelAndView("/mobile/login.btl");
+        ModelAndView view = new ModelAndView("/default/params.btl");
         view.addObject("total", 2222);
         return view;
     }
