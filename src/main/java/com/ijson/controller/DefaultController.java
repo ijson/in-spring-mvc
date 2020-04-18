@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class DefaultController {
 
     @RequestMapping(value = "/params", method = RequestMethod.GET)
-    public ModelAndView mobile() {
+    public ModelAndView params() {
         ModelAndView view = new ModelAndView("/default/params");
         view.addObject("total", 2222);
         view.addObject("title", "你好,中国!");
