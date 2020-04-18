@@ -15,4 +15,11 @@ public class DefaultController {
         view.addObject("title", "你好,中国!");
         return view;
     }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView index() {
+        ModelAndView view = new ModelAndView("/index");
+        view.addObject("title", "欢迎使用IN-SPRINGMVC-FRAMEWORK");
+        return view;
+    }
 }
