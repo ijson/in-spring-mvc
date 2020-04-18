@@ -8,6 +8,14 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class DefaultController {
 
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView index() {
+        ModelAndView view = new ModelAndView("/index");
+        view.addObject("title", "欢迎使用IN-SPRINGMVC-FRAMEWORK");
+        return view;
+    }
+
     @RequestMapping(value = "/params", method = RequestMethod.GET)
     public ModelAndView params() {
         ModelAndView view = new ModelAndView("/default/params");
@@ -16,10 +24,9 @@ public class DefaultController {
         return view;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView index() {
-        ModelAndView view = new ModelAndView("/index");
-        view.addObject("title", "欢迎使用IN-SPRINGMVC-FRAMEWORK");
-        return view;
+
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    public ModelAndView error() throws Throwable {
+        throw new Throwable("1");
     }
 }
