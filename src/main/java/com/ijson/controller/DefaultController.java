@@ -12,6 +12,7 @@ public class DefaultController {
     public ModelAndView mobile() {
         ModelAndView view = new ModelAndView("/default/params.btl");
         view.addObject("total", 2222);
+        view.addObject("title", "你好,中国!");
         return view;
     }
 }
